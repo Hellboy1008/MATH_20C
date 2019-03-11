@@ -6,17 +6,17 @@ import java.util.Arrays;
 
 public class MATH20C_Chapter_One {
 
-    public static int[] line_1 = new int[6];
-    public static int[] line_2 = new int[6];
-    public static int[][] matrix = new int[3][3];
-    public static int[] plane_1 = new int[4];
-    public static int[] plane_2 = new int[4];
-    public static int[] point_1 = new int[3];
-    public static int[] point_2 = new int[3];
-    public static int[] point_3 = new int[3];
-    public static int[] vector_1 = new int[3];
-    public static int[] vector_2 = new int[3];
-    public static int[] vector_3 = new int[3];
+    private static int[] line_1 = new int[6];
+    private static int[] line_2 = new int[6];
+    private static int[][] matrix = new int[3][3];
+    private static int[] plane_1 = new int[4];
+    private static int[] plane_2 = new int[4];
+    private static int[] point_1 = new int[3];
+    private static int[] point_2 = new int[3];
+    private static int[] point_3 = new int[3];
+    private static int[] vector_1 = new int[3];
+    private static int[] vector_2 = new int[3];
+    private static int[] vector_3 = new int[3];
 
     public static void main(String[] args) {
         boolean answerQuestion = true;
