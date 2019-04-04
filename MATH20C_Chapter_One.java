@@ -2,7 +2,6 @@
 //龍ONE
 
 import java.util.Scanner;
-import java.util.Arrays;
 
 public class MATH20C_Chapter_One {
 
