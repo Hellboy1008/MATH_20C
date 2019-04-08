@@ -8,12 +8,10 @@ public class MATH20C_Calculations {
     public static final int THREE_DIMENSIONS = 3;
     public static final char COMMA = ',';
 
-    public String ChapterOne(int topicNumber, String input) {
-
-        return ""; // remove later
+    public void ChapterOne(int topicNumber, String input) {
     }
 
-    public static int[] interpretString(String input) {
+    private static int[] interpretString(String input) {
         int[] answer;
         int numOfCommas = 0;
         // count the number of commas
@@ -36,6 +34,20 @@ public class MATH20C_Calculations {
             }
         }
         return answer;
+    }
+
+    private static int[][] convertToMatrix(int[] input) {
+        int matrixSize = (int) Math.sqrt(input.length);
+        int[][] matrix = new int[matrixSize][matrixSize];
+        int inputMatrixIndex = 0;
+        // turn int[] into 2-D array represented by int[][]
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix[row].length; col++) {
+                matrix[row][col] = input[inputMatrixIndex];
+                inputMatrixIndex++;
+            }
+        }
+        return matrix;
     }
 
 }

@@ -5,48 +5,55 @@ import java.util.Scanner;
 
 public class MATH20C_Chapter_One {
 
-    private static int[] line_1 = new int[6];
-    private static int[] line_2 = new int[6];
-    private static int[][] matrix = new int[3][3];
-    private static int[] plane_1 = new int[4];
-    private static int[] plane_2 = new int[4];
-    private static int[] point_1 = new int[3];
-    private static int[] point_2 = new int[3];
-    private static int[] point_3 = new int[3];
-    private static int[] vector_1 = new int[3];
-    private static int[] vector_2 = new int[3];
-    private static int[] vector_3 = new int[3];
+    private static final String PROMPT = "What do you want to solve? Choose from"
+            + "the following options and type the corresponding number:";
+    private static final String QUESTION_ONE = "1: Line from two vectors";
+    private static final String QUESTION_TWO = "2: Intersection of two lines";
+    private static final String QUESTION_THREE = "3: Magnitude of a vector";
+    private static final String QUESTION_FOUR = "4: Dot product of two vectors";
+    private static final String QUESTION_FIVE = "5: Unit vector";
+    private static final String QUESTION_SIX = "6: Angle between two vectors";
+    private static final String QUESTION_SEVEN = "7: Orthogonal projection of two vectors";
+    private static final String QUESTION_EIGHT = "8: Determinant of 3x3 matrix";
+    private static final String QUESTION_NINE = "9: Cross product of two vectors";
+    private static final String QUESTION_TEN = "10: Area of parallelogram spanned by two vectors";
+    private static final String QUESTION_ELEVEN = "11: Volume of parallelepiped spanned by three vectors";
+    private static final String QUESTION_TWELVE = "12: Determine if three vectors are coplanar";
+    private static final String QUESTION_THIRTEEN = "13: Equation of a plane given three points";
+    private static final String QUESTION_FOURTEEN = "14: Equation of a plane given normal vector and point";
+    private static final String QUESTION_FIFTEEEN = "15: Intersection of line and plane";
+    private static final String QUESTION_SIXTEEN = "16: Intersection of two planes";
+    private static final String[] QUESTIONS = { QUESTION_ONE, QUESTION_TWO, QUESTION_THREE, QUESTION_FOUR,
+            QUESTION_FIVE, QUESTION_SIX, QUESTION_SEVEN, QUESTION_EIGHT, QUESTION_NINE, QUESTION_TEN, QUESTION_ELEVEN,
+            QUESTION_TWELVE, QUESTION_THIRTEEN, QUESTION_FOURTEEN, QUESTION_FIFTEEEN, QUESTION_SIXTEEN };
+    private static final String QUESTION_SEPARATOR = ", ";
+    private static final String END_PROMPT = "Type 0 to end the program";
+    private static final String QUESTION_PROMPT_VECTOR = "Enter the vectors in the form (x,y,z)";
 
     public static void main(String[] args) {
         boolean answerQuestion = true;
         int topic;
+        String inputOne;
+        String inputTwo;
+        String inputThree;
         while (answerQuestion == true) {
+            inputOne = "";
+            inputTwo = "";
+            inputThree = "";
             Scanner scan = new Scanner(System.in);
+            System.out.println(PROMPT);
+            System.out.println(QUESTION_ONE + QUESTION_SEPARATOR + QUESTION_TWO + QUESTION_SEPARATOR + QUESTION_THREE
+                    + QUESTION_SEPARATOR + QUESTION_FOUR);
+            System.out.println(QUESTION_FIVE + QUESTION_SEPARATOR + QUESTION_SIX + QUESTION_SEPARATOR + QUESTION_SEVEN
+                    + QUESTION_SEPARATOR + QUESTION_EIGHT);
+            System.out
+                    .println(QUESTION_NINE + QUESTION_SEPARATOR + QUESTION_TEN + QUESTION_SEPARATOR + QUESTION_ELEVEN);
             System.out.println(
-                    "What do you want to solve? Choose from the following options and type the corresponding number:");
-            System.out.println(
-                    "1: Line from two vectors, 2: Intersection of two lines 3: Magnitude of a vector, 4: Dot product of two vectors");
-            System.out.println(
-                    "5: Unit vector, 6: Angle between two vectors, 7: Orthogonal projection of two vectors, 8: Determinant of 3x3 matrix");
-            System.out.println(
-                    "9: Cross product of two vectors, 10: Area of parallelogram spanned by two vectors, 11: Volume of parallelepiped spanned by three vectors");
-            System.out.println(
-                    "12: Determine if three vectors are coplanar, 13: Equation of a plane given three points, 14: Equation of a plane given normal vector and point");
-            System.out.println("15: Intersection of line and plane, 16: Intersection of two planes");
-            System.out.println("Type 0 to end the program");
+                    QUESTION_TWELVE + QUESTION_SEPARATOR + QUESTION_THIRTEEN + QUESTION_SEPARATOR + QUESTION_FOURTEEN);
+            System.out.println(QUESTION_FIFTEEEN + QUESTION_SEPARATOR + QUESTION_SIXTEEN);
+            System.out.println(END_PROMPT);
             topic = scan.nextInt();
-            // solve question given the topics
-            String lineOne;
-            String lineTwo;
-            String matrixOne;
-            String planeOne;
-            String planeTwo;
-            String pointOne;
-            String pointTwo;
-            String pointThree;
-            String vectorOne;
-            String vectorTwo;
-            String vectorThree;
+            // solve question given the topic
             switch (topic) {
             case 0:
                 answerQuestion = false;
@@ -58,28 +65,12 @@ public class MATH20C_Chapter_One {
             case 9:
             case 10:
                 // prompt user
-                System.out.println("Enter the vectors in the form (x,y,z)");
+                System.out.println(QUESTION_PROMPT_VECTOR);
                 System.out.println("First Vector:");
                 vectorOne = scan.next();
                 System.out.println("Second Vector:");
                 vectorTwo = scan.next();
-                // put user input into arrays
-                interpretString(vectorOne, "vector", 1);
-                interpretString(vectorTwo, "vector", 2);
                 // solve question
-                if (topic == 1) {
-                    topicOne(vector_1, vector_2);
-                } else if (topic == 4) {
-                    topicFour(vector_1, vector_2);
-                } else if (topic == 6) {
-                    topicSix(vector_1, vector_2);
-                } else if (topic == 7) {
-                    topicSeven(vector_1, vector_2);
-                } else if (topic == 9) {
-                    topicNine(vector_1, vector_2);
-                } else if (topic == 10) {
-                    topicTen(vector_1, vector_2);
-                }
                 break;
             case 2:
                 // prompt user
