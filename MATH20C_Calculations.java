@@ -14,24 +14,46 @@ public class MATH20C_Calculations {
     private static final char COMMA = ',';
     private static final String NEWLINE = "\n";
     // Chapter One Answers
-    private static final String ANSWER_LINE = "Line: (%s" + COMMA + "%s" + COMMA + "%s" + ") + t(%s" + COMMA + "%s"
-            + COMMA + "%s" + ")", ANSWER_INTERSECT_YES = "The two lines intersect at:\n" + "(%s,%s,%s)",
-            ANSWER_INTERSECT_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %s";
+    private static final String ANSWER_LINE = "Line: (%.3f,%.3f,%.3f) + t(%.3f,%.3f,%.3f)",
+            ANSWER_INTERSECT_YES = "The two lines intersect at:\n" + "(%.3f,%.3f,%.3f)",
+            ANSWER_INTERSECT_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %.3f",
+            ANSWER_DOT_PRODUCT = "Dot Product = %.3f", ANSWER_VECTOR = "Vector = (%.3f,%.3f,%.3f)",
+            ANSWER_ANGLE = "Angle = %.3f",
+            ANSWER_ORTHOGONAL = "The orthogonal projection of vector 1 on vector 2 is: (%.3f,%.3f,%.3f)";
     // Chapter Two Answers
 
     public void ChapterOne(int topicNumber, String inputOne) {
         double[] inputOneArray = interpretStringToArray(inputOne);
+        // select topics
+        switch (topicNumber) {
+        case TOPIC_NUMBER_THREE:
+            ChapterOneTopicThree(inputOneArray, true);
+            break;
+        case TOPIC_NUMBER_FIVE:
+            ChapterOneTopicFive(inputOneArray);
+            break;
+        }
     }
 
     public void ChapterOne(int topicNumber, String inputOne, String inputTwo) {
         double[] inputOneArray = interpretStringToArray(inputOne);
         double[] inputTwoArray = interpretStringToArray(inputTwo);
+        // select topics
         switch (topicNumber) {
         case TOPIC_NUMBER_ONE:
             ChapterOneTopicOne(inputOneArray, inputTwoArray);
             break;
         case TOPIC_NUMBER_TWO:
             ChapterOneTopicTwo(inputOneArray, inputTwoArray);
+            break;
+        case TOPIC_NUMBER_FOUR:
+            ChapterOneTopicFour(inputOneArray, inputTwoArray, true);
+            break;
+        case TOPIC_NUMBER_SIX:
+            ChapterOneTopicSix(inputOneArray, inputTwoArray);
+            break;
+        case TOPIC_NUMBER_SEVEN:
+            ChapterOneTopicSeven(inputOneArray, inputTwoArray);
             break;
         }
     }
@@ -122,56 +144,57 @@ public class MATH20C_Calculations {
     }
 
     // magnitude of a vector
-    public static void ChapterOneTopicThree(int[] vector_one) {
+    public static double ChapterOneTopicThree(double[] vector_one, boolean print) {
         double answer_number = Math
                 .sqrt(Math.pow(vector_one[0], THREE_DIMENSIONS - 1) + Math.pow(vector_one[1], THREE_DIMENSIONS - 1)
                         + Math.pow(vector_one[THREE_DIMENSIONS - 1], THREE_DIMENSIONS - 1));
-        System.out.printf(ANSWER_MAGNITUDE + NEWLINE, answer_number);
+        if (print == true) {
+            System.out.printf(ANSWER_MAGNITUDE + NEWLINE, answer_number);
+        }
+        return answer_number;
     }
 
     // dot product of two vectors
-    public static void ChapterOneTopicFour(int[] vector_one, int[] vector_two) {
-        int answer_number = 0;
-        answer_number = vector_one[0] * vector_two[0] + vector_one[1] * vector_two[1] + vector_one[2] * vector_two[2];
-        System.out.println(answer_number);
+    public static double ChapterOneTopicFour(double[] vector_one, double[] vector_two, boolean print) {
+        double answer_number = vector_one[0] * vector_two[0] + vector_one[1] * vector_two[1]
+                + vector_one[THREE_DIMENSIONS - 1] * vector_two[THREE_DIMENSIONS - 1];
+        if (print == true) {
+            System.out.printf(ANSWER_DOT_PRODUCT + NEWLINE, answer_number);
+        }
+        return answer_number;
     }
 
     // unit vector
-    public static void ChapterOneTopicFive(int[] vector_one) {
-        double[] answer_vector = new double[3];
-        double magnitude = Math
-                .sqrt(Math.pow(vector_one[0], 2) + Math.pow(vector_one[1], 2) + Math.pow(vector_one[2], 2));
+    public static void ChapterOneTopicFive(double[] vector_one) {
+        double[] answer_vector = new double[THREE_DIMENSIONS];
+        double magnitude = ChapterOneTopicThree(vector_one, false);
         answer_vector[0] = (double) (vector_one[0]) / magnitude;
         answer_vector[1] = (double) (vector_one[1]) / magnitude;
-        answer_vector[2] = (double) (vector_one[2]) / magnitude;
-        System.out.println("Vector: (" + answer_vector[0] + "," + answer_vector[1] + "," + answer_vector[2] + ")");
+        answer_vector[THREE_DIMENSIONS - 1] = (double) (vector_one[THREE_DIMENSIONS - 1]) / magnitude;
+        System.out.printf(ANSWER_VECTOR + NEWLINE, answer_vector[0], answer_vector[1],
+                answer_vector[THREE_DIMENSIONS - 1]);
     }
 
     // angle between two vectors
-    public static void ChapterOneTopicSix(int[] vector_one, int[] vector_two) {
-        double answer_angle = 0;
-        double dot_product = vector_one[0] * vector_two[0] + vector_one[1] * vector_two[1]
-                + vector_one[2] * vector_two[2];
-        double magnitude_vector_one = Math
-                .sqrt(Math.pow(vector_one[0], 2) + Math.pow(vector_one[1], 2) + Math.pow(vector_one[2], 2));
-        double magnitude_vector_two = Math
-                .sqrt(Math.pow(vector_two[0], 2) + Math.pow(vector_two[1], 2) + Math.pow(vector_two[2], 2));
-        answer_angle = Math.acos(dot_product / (magnitude_vector_one * magnitude_vector_two));
-        System.out.println("Angle = " + answer_angle);
+    public static void ChapterOneTopicSix(double[] vector_one, double[] vector_two) {
+        double dot_product = ChapterOneTopicFour(vector_one, vector_two, false);
+        double magnitude_vector_one = ChapterOneTopicThree(vector_one, false);
+        double magnitude_vector_two = ChapterOneTopicThree(vector_two, false);
+        double answer_angle = Math.acos(dot_product / (magnitude_vector_one * magnitude_vector_two));
+        System.out.printf(ANSWER_ANGLE + NEWLINE, answer_angle);
     }
 
     // orthogonal projection of two vectors
-    public static void ChapterOneTopicSeven(int[] vector_one, int[] vector_two) {
-        double[] answer_vector = new double[3];
-        double magnitude_vector_two = Math
-                .sqrt(Math.pow(vector_two[0], 2) + Math.pow(vector_two[1], 2) + Math.pow(vector_two[2], 2));
-        double dot_product = vector_one[0] * vector_two[0] + vector_one[1] * vector_two[1]
-                + vector_one[2] * vector_two[2];
-        answer_vector[0] = (dot_product / Math.pow(magnitude_vector_two, 2)) * vector_two[0];
-        answer_vector[1] = (dot_product / Math.pow(magnitude_vector_two, 2)) * vector_two[1];
-        answer_vector[2] = (dot_product / Math.pow(magnitude_vector_two, 2)) * vector_two[2];
-        System.out.println("The orthogonal projection of vector 1 on vector 2 is: (" + answer_vector[0] + ","
-                + answer_vector[1] + "," + answer_vector[2] + ")");
+    public static void ChapterOneTopicSeven(double[] vector_one, double[] vector_two) {
+        double[] answer_vector = new double[THREE_DIMENSIONS];
+        double magnitude_vector_two = ChapterOneTopicThree(vector_two, false);
+        double dot_product = ChapterOneTopicFour(vector_one, vector_two, false);
+        answer_vector[0] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSIONS - 1)) * vector_two[0];
+        answer_vector[1] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSIONS - 1)) * vector_two[1];
+        answer_vector[THREE_DIMENSIONS - 1] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSIONS - 1))
+                * vector_two[THREE_DIMENSIONS - 1];
+        System.out.printf(ANSWER_ORTHOGONAL + NEWLINE, answer_vector[0], answer_vector[1],
+                answer_vector[THREE_DIMENSIONS - 1]);
     }
 
     // determinant of 3x3 matrix
