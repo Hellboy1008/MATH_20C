@@ -11,7 +11,7 @@ public class MATH20C_Calculations {
             TOPIC_NUMBER_NINE = 9, TOPIC_NUMBER_TEN = 10, TOPIC_NUMBER_ELEVEN = 11, TOPIC_NUMBER_TWELVE = 12,
             TOPIC_NUMBER_THIRTEEN = 13, TOPIC_NUMBER_FOURTEEN = 14, TOPIC_NUMBER_FIFTEEN = 15,
             TOPIC_NUMBER_SIXTEEN = 16;
-    private static final char COMMA = ',';
+    private static final char COMMA = ',', PLUS = '+', MINUS = '-', SPACE = ' ';
     private static final String NEWLINE = "\n";
     // Chapter One Answers
     private static final String ANSWER_LINE = "Line: (%.3f,%.3f,%.3f) + t(%.3f,%.3f,%.3f)",
@@ -19,7 +19,12 @@ public class MATH20C_Calculations {
             ANSWER_INTERSECT_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %.3f",
             ANSWER_DOT_PRODUCT = "Dot Product = %.3f", ANSWER_VECTOR = "Vector = (%.3f,%.3f,%.3f)",
             ANSWER_ANGLE = "Angle = %.3f",
-            ANSWER_ORTHOGONAL = "The orthogonal projection of vector 1 on vector 2 is: (%.3f,%.3f,%.3f)";
+            ANSWER_ORTHOGONAL = "The orthogonal projection of vector 1 on vector 2 is: (%.3f,%.3f,%.3f)",
+            ANSWER_DETERMINANT = "Determinant = %.3f", ANSWER_CROSS_PRODUCT = "Cross Product = (%.3f,%.3f,%.3f)",
+            ANSWER_PARALLELOGRAM = "Area of the parallelogram = %.3f",
+            ANSWER_PARALLELPIPED = "Volume of parallelpiped = %.3f", ANSWER_COPLANAR = "Yes, the vectors are coplanar",
+            ANSWER_NOT_COPLANAR = "No, the vectors are not coplanar",
+            ANSWER_PLANE = "The equation of the plane is %.3fx %c %.3fy %c %.3fz = %.3f";
     // Chapter Two Answers
 
     public void ChapterOne(int topicNumber, String inputOne) {
@@ -31,6 +36,9 @@ public class MATH20C_Calculations {
             break;
         case TOPIC_NUMBER_FIVE:
             ChapterOneTopicFive(inputOneArray);
+            break;
+        case TOPIC_NUMBER_EIGHT:
+            ChapterOneTopicEight(convertToMatrix(inputOneArray));
             break;
         }
     }
@@ -55,6 +63,12 @@ public class MATH20C_Calculations {
         case TOPIC_NUMBER_SEVEN:
             ChapterOneTopicSeven(inputOneArray, inputTwoArray);
             break;
+        case TOPIC_NUMBER_NINE:
+            ChapterOneTopicNine(inputOneArray, inputTwoArray, true);
+            break;
+        case TOPIC_NUMBER_TEN:
+            ChapterOneTopicTen(inputOneArray, inputTwoArray);
+            break;
         }
     }
 
@@ -62,6 +76,17 @@ public class MATH20C_Calculations {
         double[] inputOneArray = interpretStringToArray(inputOne);
         double[] inputTwoArray = interpretStringToArray(inputTwo);
         double[] inputThreeArray = interpretStringToArray(inputThree);
+        switch (topicNumber) {
+        case TOPIC_NUMBER_ELEVEN:
+            ChapterOneTopicEleven(inputOneArray, inputTwoArray, inputThreeArray, true);
+            break;
+        case TOPIC_NUMBER_TWELVE:
+            ChapterOneTopicTwelve(inputOneArray, inputTwoArray, inputThreeArray);
+            break;
+        case TOPIC_NUMBER_THIRTEEN:
+            ChapterOneTopicThirteen(inputOneArray, inputTwoArray, inputThreeArray);
+            break;
+        }
     }
 
     private static double[] interpretStringToArray(String input) {
@@ -78,8 +103,7 @@ public class MATH20C_Calculations {
             return null;
         } else {
             answer = new double[numOfCommas + 1];
-            int arrayIndex = 0;
-            int commaIndex = 0;
+            int arrayIndex = 0, commaIndex = 0;
             for (int index = 0; index < input.length(); index++) {
                 if (input.charAt(index) == COMMA) {
                     answer[arrayIndex] = Double.parseDouble(input.substring(commaIndex, index));
@@ -92,11 +116,11 @@ public class MATH20C_Calculations {
         return answer;
     }
 
-    private static int[][] convertToMatrix(int[] input) {
+    private static double[][] convertToMatrix(double[] input) {
         int matrixSize = (int) Math.sqrt(input.length);
-        int[][] matrix = new int[matrixSize][matrixSize];
+        double[][] matrix = new double[matrixSize][matrixSize];
         int inputMatrixIndex = 0;
-        // turn int[] into 2-D array represented by int[][]
+        // turn double[] into 2-D array represented by double[][]
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix[row].length; col++) {
                 matrix[row][col] = input[inputMatrixIndex];
@@ -198,103 +222,87 @@ public class MATH20C_Calculations {
     }
 
     // determinant of 3x3 matrix
-    public static void ChapterOneTopicEight(int[][] matrix_one) {
-        int answer_number = 0;
-        int i_component = matrix_one[0][0]
-                * (matrix_one[1][1] * matrix_one[2][2] - matrix_one[1][2] * matrix_one[2][1]);
-        int j_component = matrix_one[0][1]
-                * (matrix_one[1][0] * matrix_one[2][2] - matrix_one[1][2] * matrix_one[2][0]);
-        int k_component = matrix_one[0][2]
-                * (matrix_one[1][0] * matrix_one[2][1] - matrix_one[1][1] * matrix_one[2][0]);
-        answer_number = i_component - j_component + k_component;
-        System.out.println("The determinant is: " + answer_number);
+    public static void ChapterOneTopicEight(double[][] matrix_one) {
+        double i_component = matrix_one[0][0]
+                * (matrix_one[1][1] * matrix_one[THREE_DIMENSIONS - 1][THREE_DIMENSIONS - 1]
+                        - matrix_one[1][THREE_DIMENSIONS - 1] * matrix_one[THREE_DIMENSIONS - 1][1]);
+        double j_component = matrix_one[0][1]
+                * (matrix_one[1][0] * matrix_one[THREE_DIMENSIONS - 1][THREE_DIMENSIONS - 1]
+                        - matrix_one[1][THREE_DIMENSIONS - 1] * matrix_one[THREE_DIMENSIONS - 1][0]);
+        double k_component = matrix_one[0][THREE_DIMENSIONS - 1]
+                * (matrix_one[1][0] * matrix_one[THREE_DIMENSIONS - 1][1]
+                        - matrix_one[1][1] * matrix_one[THREE_DIMENSIONS - 1][0]);
+        double answer_number = i_component - j_component + k_component;
+        System.out.printf(ANSWER_DETERMINANT + NEWLINE, answer_number);
     }
 
     // cross product of two vectors
-    public static void ChapterOneTopicNine(int[] vector_one, int[] vector_two) {
-        int[] answer_vector = new int[3];
-        answer_vector[0] = vector_one[1] * vector_two[2] - vector_one[2] * vector_two[1];
-        answer_vector[1] = -1 * (vector_one[0] * vector_two[2] - vector_one[2] * vector_two[0]);
-        answer_vector[2] = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
-        System.out.println(
-                "The cross product is: (" + answer_vector[0] + "," + answer_vector[1] + "," + answer_vector[2] + ")");
+    public static double[] ChapterOneTopicNine(double[] vector_one, double[] vector_two, boolean print) {
+        double[] answer_vector = new double[THREE_DIMENSIONS];
+        answer_vector[0] = vector_one[1] * vector_two[THREE_DIMENSIONS - 1]
+                - vector_one[THREE_DIMENSIONS - 1] * vector_two[1];
+        answer_vector[1] = -1
+                * (vector_one[0] * vector_two[THREE_DIMENSIONS - 1] - vector_one[THREE_DIMENSIONS - 1] * vector_two[0]);
+        answer_vector[THREE_DIMENSIONS - 1] = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
+        if (print == true) {
+            System.out.printf(ANSWER_CROSS_PRODUCT + NEWLINE, answer_vector[0], answer_vector[1],
+                    answer_vector[THREE_DIMENSIONS - 1]);
+        }
+        return answer_vector;
     }
 
     // area of parallelogram spanned by two vectors
-    public static void ChapterOneTopicTen(int[] vector_one, int[] vector_two) {
-        double answer_number = 0;
-        int cross_product_icomponent = vector_one[1] * vector_two[2] - vector_one[2] * vector_two[1];
-        int cross_product_jcomponent = -1 * (vector_one[0] * vector_two[2] - vector_one[2] * vector_two[0]);
-        int cross_product_kcomponent = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
-        answer_number = Math.sqrt(Math.pow(cross_product_icomponent, 2) + Math.pow(cross_product_jcomponent, 2)
-                + Math.pow(cross_product_kcomponent, 2));
-        System.out.println("Area of parallelogram = " + answer_number);
+    public static void ChapterOneTopicTen(double[] vector_one, double[] vector_two) {
+        double[] cross_product = ChapterOneTopicNine(vector_one, vector_two, false);
+        double answer_number = ChapterOneTopicThree(cross_product, false);
+        System.out.printf(ANSWER_PARALLELOGRAM + NEWLINE, answer_number);
     }
 
     // volume of parallelepiped spanned by three vectors
-    public static void ChapterOneTopicEleven(int[] vector_one, int[] vector_two, int[] vector_three) {
-        int answer_number = 0;
-        int cross_product_icomponent = vector_one[0]
-                * (vector_two[1] * vector_three[2] - vector_two[2] * vector_three[1]);
-        int cross_product_jcomponent = -1 * vector_one[1]
-                * (vector_two[0] * vector_three[2] - vector_two[2] * vector_three[0]);
-        int cross_product_kcomponent = vector_one[2]
-                * (vector_two[0] * vector_three[1] - vector_two[1] * vector_three[0]);
-        answer_number = Math.abs(cross_product_icomponent + cross_product_jcomponent + cross_product_kcomponent);
-        System.out.println("Volume of parallelepiped = " + answer_number);
+    public static double ChapterOneTopicEleven(double[] vector_one, double[] vector_two, double[] vector_three,
+            boolean print) {
+        double determinant = ChapterOneTopicFour(ChapterOneTopicNine(vector_one, vector_two, false), vector_three,
+                false);
+        double answer_number = Math.abs(determinant);
+        if (print == true) {
+            System.out.printf(ANSWER_PARALLELPIPED + NEWLINE, answer_number);
+        }
+        return answer_number;
     }
 
     // determine if three vectors are coplanar
-    public static void ChapterOneTopicTwelve(int[] vector_one, int[] vector_two, int[] vector_three) {
-        String answer = "";
-        int cross_product_icomponent = vector_one[0]
-                * (vector_two[1] * vector_three[2] - vector_two[2] * vector_three[1]);
-        int cross_product_jcomponent = -1 * vector_one[1]
-                * (vector_two[0] * vector_three[2] - vector_two[2] * vector_three[0]);
-        int cross_product_kcomponent = vector_one[2]
-                * (vector_two[0] * vector_three[1] - vector_two[1] * vector_three[0]);
-        int cross_product = Math.abs(cross_product_icomponent + cross_product_jcomponent + cross_product_kcomponent);
-        if (cross_product == 0) {
-            answer = "Yes";
+    public static void ChapterOneTopicTwelve(double[] vector_one, double[] vector_two, double[] vector_three) {
+        if (ChapterOneTopicEleven(vector_one, vector_two, vector_three, false) == 0) {
+            System.out.println(ANSWER_COPLANAR);
         } else {
-            answer = "No";
+            System.out.println(ANSWER_NOT_COPLANAR);
         }
-        System.out.println(answer);
     }
 
     // equation of a plane given three points
-    public static void ChapterOneTopicThirteen(int[] point_one, int[] point_two, int[] point_three) {
-        int[] vector_one = new int[3];
-        int[] vector_two = new int[3];
+    public static void ChapterOneTopicThirteen(double[] point_one, double[] point_two, double[] point_three) {
+        double[] vector_one = new double[THREE_DIMENSIONS], vector_two = new double[THREE_DIMENSIONS];
         vector_one[0] = point_two[0] - point_one[0];
         vector_one[1] = point_two[1] - point_one[1];
-        vector_one[2] = point_two[2] - point_one[2];
+        vector_one[THREE_DIMENSIONS - 1] = point_two[THREE_DIMENSIONS - 1] - point_one[THREE_DIMENSIONS - 1];
         vector_two[0] = point_three[0] - point_two[0];
         vector_two[1] = point_three[1] - point_two[1];
-        vector_two[2] = point_three[2] - point_two[2];
-        int cross_product_icomponent = vector_one[1] * vector_two[2] - vector_one[2] * vector_two[1];
-        int cross_product_jcomponent = -1 * (vector_one[0] * vector_two[2] - vector_one[2] * vector_two[0]);
-        int cross_product_kcomponent = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
+        vector_two[THREE_DIMENSIONS - 1] = point_three[THREE_DIMENSIONS - 1] - point_two[THREE_DIMENSIONS - 1];
+        double[] cross_product = ChapterOneTopicNine(vector_one, vector_two, false);
         // A(x-x0) + B(y-y0) + C(z-z0) = 0
-        int equation_d_value = cross_product_icomponent * point_one[0] + cross_product_jcomponent * point_one[1]
-                + cross_product_kcomponent * point_one[2];
-        String yComponent_sign;
-        String zComponent_sign;
-        if (cross_product_jcomponent > 0) {
-            yComponent_sign = "+ ";
-        } else {
-            yComponent_sign = "- ";
-            cross_product_jcomponent = Math.abs(cross_product_jcomponent);
+        double d_value = cross_product[0] * point_one[0] + cross_product[1] * point_one[1]
+                + cross_product[THREE_DIMENSIONS - 1] * point_one[THREE_DIMENSIONS - 1];
+        char yComponent_sign = PLUS, zComponent_sign = PLUS;
+        if (cross_product[1] < 0) {
+            yComponent_sign = MINUS;
         }
-        if (cross_product_kcomponent > 0) {
-            zComponent_sign = "+ ";
-        } else {
-            zComponent_sign = "- ";
-            cross_product_kcomponent = Math.abs(cross_product_kcomponent);
+        if (cross_product[THREE_DIMENSIONS - 1] < 0) {
+            zComponent_sign = MINUS;
         }
-        System.out.println("The equation of the plane is: " + cross_product_icomponent + "x " + yComponent_sign
-                + cross_product_jcomponent + "y " + zComponent_sign + cross_product_kcomponent + "z = "
-                + equation_d_value);
+        cross_product[1] = Math.abs(cross_product[1]);
+        cross_product[THREE_DIMENSIONS - 1] = Math.abs(cross_product[THREE_DIMENSIONS - 1]);
+        System.out.printf(ANSWER_PLANE + NEWLINE, cross_product[0], yComponent_sign, cross_product[1], zComponent_sign,
+                cross_product[THREE_DIMENSIONS - 1], d_value);
     }
 
     // equation of a plane given normal vector and point
@@ -315,7 +323,7 @@ public class MATH20C_Calculations {
             zComponent_sign = "- ";
             vector_one[2] = Math.abs(vector_one[2]);
         }
-        System.out.println("The equation of the plane is: " + vector_one[0] + "x " + yComponent_sign + vector_one[1]
+        System.out.printf("The equation of the plane is: " + vector_one[0] + "x " + yComponent_sign + vector_one[1]
                 + "y " + zComponent_sign + vector_one[2] + "z = " + d_value);
     }
 
