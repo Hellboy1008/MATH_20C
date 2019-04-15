@@ -15,8 +15,8 @@ public class MATH20C_Calculations {
     private static final String NEWLINE = "\n";
     // Chapter One Answers
     private static final String ANSWER_LINE = "Line: (%.3f,%.3f,%.3f) + t(%.3f,%.3f,%.3f)",
-            ANSWER_INTERSECT_YES = "The two lines intersect at:\n" + "(%.3f,%.3f,%.3f)",
-            ANSWER_INTERSECT_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %.3f",
+            ANSWER_INTERSECT_LINE_YES = "The two lines intersect at:\n" + "(%.3f,%.3f,%.3f)",
+            ANSWER_INTERSECT_LINE_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %.3f",
             ANSWER_DOT_PRODUCT = "Dot Product = %.3f", ANSWER_VECTOR = "Vector = (%.3f,%.3f,%.3f)",
             ANSWER_ANGLE = "Angle = %.3f",
             ANSWER_ORTHOGONAL = "The orthogonal projection of vector 1 on vector 2 is: (%.3f,%.3f,%.3f)",
@@ -24,7 +24,10 @@ public class MATH20C_Calculations {
             ANSWER_PARALLELOGRAM = "Area of the parallelogram = %.3f",
             ANSWER_PARALLELPIPED = "Volume of parallelpiped = %.3f", ANSWER_COPLANAR = "Yes, the vectors are coplanar",
             ANSWER_NOT_COPLANAR = "No, the vectors are not coplanar",
-            ANSWER_PLANE = "The equation of the plane is %.3fx %c %.3fy %c %.3fz = %.3f";
+            ANSWER_PLANE = "The equation of the plane is %.3fx %c %.3fy %c %.3fz = %.3f",
+            ANSWER_INTERSECT_POINT_NO = "The line and the plane do not intersect",
+            ANSWER_INTERSECT_POINT_YES = "The line and the plane intersect at (%.3f,%.3f,%.3f)",
+            ANSWER_INTERSECT_PLANE = "The intersection of the two planes is: (%.3f,%.3f,0) + t(%.3f,%.3f,%.3f)";
     // Chapter Two Answers
 
     public void ChapterOne(int topicNumber, String inputOne) {
@@ -71,6 +74,12 @@ public class MATH20C_Calculations {
             break;
         case TOPIC_NUMBER_FOURTEEN:
             ChapterOneTopicFourteen(inputOneArray, inputTwoArray);
+            break;
+        case TOPIC_NUMBER_FIFTEEN:
+            ChapterOneTopicFifthteen(inputOneArray, inputTwoArray);
+            break;
+        case TOPIC_NUMBER_SIXTEEN:
+            ChapterOneTopicSixteen(inputOneArray, inputTwoArray);
             break;
         }
     }
@@ -164,9 +173,9 @@ public class MATH20C_Calculations {
             double xCor = line_one[0] + line_one[THREE_DIMENSIONS] * x;
             double yCor = line_one[1] + line_one[THREE_DIMENSIONS + 1] * x;
             double zCor = line_one[THREE_DIMENSIONS - 1] + line_one[line_one.length - 1] * x;
-            System.out.printf(ANSWER_INTERSECT_YES + NEWLINE, xCor, yCor, zCor);
+            System.out.printf(ANSWER_INTERSECT_LINE_YES + NEWLINE, xCor, yCor, zCor);
         } else {
-            System.out.println(ANSWER_INTERSECT_NO);
+            System.out.println(ANSWER_INTERSECT_LINE_NO);
         }
     }
 
@@ -298,12 +307,12 @@ public class MATH20C_Calculations {
         char yComponent_sign = PLUS, zComponent_sign = PLUS;
         if (cross_product[1] < 0) {
             yComponent_sign = MINUS;
+            cross_product[1] = -1 * cross_product[1];
         }
         if (cross_product[THREE_DIMENSIONS - 1] < 0) {
             zComponent_sign = MINUS;
+            cross_product[THREE_DIMENSIONS - 1] = -1 * cross_product[THREE_DIMENSIONS - 1];
         }
-        cross_product[1] = Math.abs(cross_product[1]);
-        cross_product[THREE_DIMENSIONS - 1] = Math.abs(cross_product[THREE_DIMENSIONS - 1]);
         System.out.printf(ANSWER_PLANE + NEWLINE, cross_product[0], yComponent_sign, cross_product[1], zComponent_sign,
                 cross_product[THREE_DIMENSIONS - 1], d_value);
     }
@@ -311,55 +320,51 @@ public class MATH20C_Calculations {
     // equation of a plane given normal vector and point
     public static void ChapterOneTopicFourteen(double[] vector_one, double[] point_one) {
         // A(x-x0) + B(y-y0) + C(z-z0) = 0
-        int d_value = vector_one[0] * point_one[0] + vector_one[1] * point_one[1] + vector_one[2] * point_one[2];
-        String yComponent_sign;
-        String zComponent_sign;
-        if (vector_one[1] > 0) {
-            yComponent_sign = "+ ";
-        } else {
-            yComponent_sign = "- ";
-            vector_one[1] = Math.abs(vector_one[1]);
+        double d_value = vector_one[0] * point_one[0] + vector_one[1] * point_one[1]
+                + vector_one[THREE_DIMENSIONS - 1] * point_one[THREE_DIMENSIONS - 1];
+        char yComponent_sign = PLUS, zComponent_sign = PLUS;
+        if (vector_one[1] < 0) {
+            yComponent_sign = MINUS;
+            vector_one[1] = -1 * vector_one[1];
         }
-        if (vector_one[2] > 0) {
-            zComponent_sign = "+ ";
-        } else {
-            zComponent_sign = "- ";
-            vector_one[2] = Math.abs(vector_one[2]);
+        if (vector_one[THREE_DIMENSIONS - 1] < 0) {
+            zComponent_sign = MINUS;
+            vector_one[THREE_DIMENSIONS - 1] = -1 * vector_one[THREE_DIMENSIONS - 1];
         }
-        System.out.printf("The equation of the plane is: " + vector_one[0] + "x " + yComponent_sign + vector_one[1]
-                + "y " + zComponent_sign + vector_one[2] + "z = " + d_value);
+        System.out.printf(ANSWER_PLANE + NEWLINE, vector_one[0], yComponent_sign, vector_one[1], zComponent_sign,
+                vector_one[THREE_DIMENSIONS - 1], d_value);
     }
 
     // intersection of line and plane
-    public static void ChapterOneTopicFifthteen(int[] line_one, int[] plane_one) {
-        int dot_product = line_one[0] * plane_one[0] + line_one[1] * plane_one[1] + line_one[2] * plane_one[2];
+    public static void ChapterOneTopicFifthteen(double[] line_one, double[] plane_one) {
+        double[] line_one_direction = { line_one[THREE_DIMENSIONS], line_one[THREE_DIMENSIONS + 1],
+                line_one[line_one.length - 1] };
+        double dot_product = ChapterOneTopicFour(line_one_direction, plane_one, false);
         if (dot_product == 0) {
-            System.out.println("The line and the plane do not intersect");
+            System.out.println(ANSWER_INTERSECT_POINT_NO);
         } else {
-            int time = (-1 * plane_one[3] - plane_one[0] * line_one[3] - plane_one[1] * line_one[4]
-                    - plane_one[2] * line_one[5]) / (dot_product);
-            int xCor = line_one[0] * time + line_one[3];
-            int yCor = line_one[1] * time + line_one[4];
-            int zCor = line_one[2] * time + line_one[5];
-            System.out.println("The line and the plane intersect at (" + xCor + "," + yCor + "," + zCor + ")");
+            double time = (-1 * plane_one[THREE_DIMENSIONS] - plane_one[0] * line_one[0] - plane_one[1] * line_one[1]
+                    - plane_one[THREE_DIMENSIONS - 1] * line_one[THREE_DIMENSIONS - 1])
+                    / (plane_one[0] * line_one[THREE_DIMENSIONS] + plane_one[1] * line_one[THREE_DIMENSIONS + 1]
+                            + plane_one[THREE_DIMENSIONS - 1] * line_one[line_one.length - 1]);
+            System.out.println(time);
+            double xCor = line_one[THREE_DIMENSIONS] * time + line_one[0];
+            double yCor = line_one[THREE_DIMENSIONS + 1] * time + line_one[1];
+            double zCor = line_one[line_one.length - 1] * time + line_one[THREE_DIMENSIONS - 1];
+            System.out.printf(ANSWER_INTERSECT_POINT_YES + NEWLINE, xCor, yCor, zCor);
         }
     }
 
     // intersection of two planes
-    public static void ChapterOneTopicSixteen(int[] plane_one, int[] plane_two) {
-        double a = (double) (plane_one[0]);
-        double b = (double) (plane_one[1]);
-        double c = (double) (-1 * plane_one[3]);
-        double d = (double) (plane_two[0]);
-        double e = (double) (plane_two[1]);
-        double f = (double) (-1 * plane_two[3]);
-        double x = (f * b - e * c) / (b * d - a * e);
-        double y = (c - a * x) / b;
-        int cross_product_xComp = plane_one[1] * plane_two[2] - plane_one[2] * plane_two[1];
-        int cross_product_yComp = -1 * (plane_one[0] * plane_two[2] - plane_one[2] * plane_two[0]);
-        int cross_product_zComp = plane_one[0] * plane_two[1] - plane_one[1] * plane_two[0];
-        System.out.println("The intersection of the two planes is: (" + x + "," + y + ",0) + t(" + cross_product_xComp
-                + "," + cross_product_yComp + "," + cross_product_zComp + ")");
+    public static void ChapterOneTopicSixteen(double[] plane_one, double[] plane_two) {
+        plane_one[THREE_DIMENSIONS] = -1 * plane_one[THREE_DIMENSIONS];
+        plane_two[THREE_DIMENSIONS] = -1 * plane_two[THREE_DIMENSIONS];
+        double x = (plane_two[THREE_DIMENSIONS] * plane_one[1] - plane_two[1] * plane_one[THREE_DIMENSIONS])
+                / (plane_one[1] * plane_two[0] - plane_one[0] * plane_two[1]);
+        double y = (plane_one[THREE_DIMENSIONS] - plane_one[0] * x) / plane_one[1];
+        double[] cross_product = ChapterOneTopicNine(plane_one, plane_two, false);
+        System.out.printf(ANSWER_INTERSECT_PLANE + NEWLINE, x, y, cross_product[0], cross_product[1],
+                cross_product[THREE_DIMENSIONS - 1]);
     }
 
 }
