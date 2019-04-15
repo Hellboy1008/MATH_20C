@@ -69,6 +69,9 @@ public class MATH20C_Calculations {
         case TOPIC_NUMBER_TEN:
             ChapterOneTopicTen(inputOneArray, inputTwoArray);
             break;
+        case TOPIC_NUMBER_FOURTEEN:
+            ChapterOneTopicFourteen(inputOneArray, inputTwoArray);
+            break;
         }
     }
 
@@ -306,7 +309,7 @@ public class MATH20C_Calculations {
     }
 
     // equation of a plane given normal vector and point
-    public static void ChapterOneTopicFourteen(int[] vector_one, int[] point_one) {
+    public static void ChapterOneTopicFourteen(double[] vector_one, double[] point_one) {
         // A(x-x0) + B(y-y0) + C(z-z0) = 0
         int d_value = vector_one[0] * point_one[0] + vector_one[1] * point_one[1] + vector_one[2] * point_one[2];
         String yComponent_sign;
