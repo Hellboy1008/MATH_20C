@@ -6,39 +6,55 @@ import java.util.ArrayList;
 
 public class MATH20C_Chapter_Two {
 
-        public static ArrayList<Character> formula_array = new ArrayList<Character>();
+        private static final String PROMPT = "What do you want to solve? Choose from "
+                        + "the following options and type the corresponding number:";
+        private static final String QUESTION_ONE = "1: Partial Derivative",
+                        QUESTION_TWO = "2: Partial Derivative (Chain Rule)", QUESTION_THREE = "3: Linear Approximation",
+                        QUESTION_FOUR = "4: Derivative Matrix", QUESTION_FIVE = "5: Gradient",
+                        QUESTION_SIX = "6: Tangent Plane", QUESTION_SEVEN = "7: Tangent Line for Paths",
+                        QUESTION_EIGHT = "8: Directional Derivatives of function",
+                        QUESTION_NINE = "9: Directional Derivatives (min value)",
+                        QUESTION_TEN = "10: Directional Derivatives (max value)";
+        private static final String QUESTION_SEPARATOR = ", ";
+        private static final String END_PROMPT = "Type 0 to end the program";
+        private static final String[] CASES = { "" };
 
         public static void main(String[] args) {
                 boolean answerQuestion = true;
                 int topic;
+                String inputOne;
+                String inputTwo;
+                String inputThree;
+                MATH20C_Calculations calculations = new MATH20C_Calculations();
                 while (answerQuestion == true) {
+                        inputOne = "";
+                        inputTwo = "";
+                        inputThree = "";
                         Scanner scan = new Scanner(System.in);
-                        // 1. Limits
-                        // 2. Partial Derivative (single function)
-                        // 3. Partial Derivative (multiple functions)
-                        // 4. Partial Derivative (composite functions)
-                        // 5. Linear Approximation
-                        // 6. Gradient
-                        // 7. Tangent line for paths
-                        // 8. Directional Derivatives
-                        // 9. Directional Derivatives (max value)
-                        // 10. Directional Derivatives (min value)
-                        // 11. Tangent plane to level surfaces
-                        System.out.println(
-                                        "What do you want to solve? Choose from the following options and type the corresponding number:");
-                        System.out.println("1: Derivative");
-                        System.out.println("Type 0 to end the program");
+                        System.out.println(PROMPT);
+                        System.out.println(QUESTION_ONE + QUESTION_SEPARATOR + QUESTION_TWO + QUESTION_SEPARATOR
+                                        + QUESTION_THREE + QUESTION_SEPARATOR + QUESTION_FOUR);
+                        System.out.println(QUESTION_FIVE + QUESTION_SEPARATOR + QUESTION_SIX + QUESTION_SEPARATOR
+                                        + QUESTION_SEVEN + QUESTION_SEPARATOR + QUESTION_EIGHT);
+                        System.out.println(QUESTION_NINE + QUESTION_SEPARATOR + QUESTION_TEN);
+                        // Partial Derivative (single function)
+                        // Partial Derivative (multiple functions)
+                        // Partial Derivative (composite functions)
+                        // Linear Approximation
+                        // Derivative Matrix
+                        // Gradient
+                        // Tangent Plane
+                        // Tangent line for paths
+                        // Directional Derivatives
+                        // Directional Derivatives (max value)
+                        // Directional Derivatives (min value)
+                        System.out.println(END_PROMPT);
                         topic = scan.nextInt();
-                        // solve question given the topics
-                        switch (topic) {
-                        case 0:
+                        // solve question given the topic (cases are based on last thing printed)
+                        switch (CASES[topic]) {
+                        case "":
                                 answerQuestion = false;
-                                break;
-                        case 1:
-                                System.out.println("Input the equation");
-                                String formula = scan.next();
-                                convertToArrayList(formula);
-                                System.out.println("The derivative is:" + derivative(formula));
+                                scan.close();
                                 break;
                         }
                 }
@@ -70,12 +86,5 @@ public class MATH20C_Chapter_Two {
                 // quotient rule
                 // chain rule
                 return "";
-        }
-
-        public static void convertToArrayList(String input){
-                for (int i = 0; i < input.length(); i++){
-                        formula_array.add(input.charAt(i));
-                }
-                System.out.println(formula_array);
         }
 }

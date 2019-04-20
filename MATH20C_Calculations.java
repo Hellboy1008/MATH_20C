@@ -367,4 +367,6 @@ public class MATH20C_Calculations {
                 cross_product[THREE_DIMENSIONS - 1]);
     }
 
+    // derivatives
+
 }
