@@ -1,8 +1,6 @@
 
 //龍ONE
 
-import java.util.Arrays;
-
 public class MATH20C_Calculations {
 
     private static final int THREE_DIMENSIONS = 3;
