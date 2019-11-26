@@ -1,8 +1,16 @@
 
-//龍ONE
+/**
+ * Created by: 龍ONE 
+ * Date Created: December 19, 2018
+ * Date Edited: November 25, 2019
+ * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
+ */
 
 import java.util.Scanner;
 
+/**
+ * This class prompts the user for the question they want answered.
+ */
 public class MATH20C_Chapter_One {
 
     private static final String PROMPT = "What do you want to solve? Choose from "
@@ -26,8 +34,7 @@ public class MATH20C_Chapter_One {
                     + "Enter the lines like this: a,b,c,x,y,z",
             QUESTION_PROMPT_MATRIX = "Enter the 3d matrix in this order:\n" + "(a1,a2,a3,b1,b2,b3,c1,c2,c3)",
             QUESTION_PROMPT_POINT = "Enter the points in the form x,y,z",
-            QUESTION_PROMPT_PLANE = "Given the form P = Ax + By + Cz + D = 0\n"
-                    + "Enter the planes like this: A,B,C,D";
+            QUESTION_PROMPT_PLANE = "Given the form P = Ax + By + Cz + D = 0\n" + "Enter the planes like this: A,B,C,D";
     private static final String VECTOR_ONE = "First Vector:", VECTOR_TWO = "Second Vector:",
             VECTOR_THREE = "Third Vector:";
     private static final String LINE_ONE = "First Line", LINE_TWO = "Second Line";
