@@ -1,9 +1,16 @@
 
-//龍ONE
+/**
+ * Created by: 龍ONE 
+ * Date Created: December 19, 2018
+ * Date Edited: November 25, 2019
+ * Purpose: Perform Calculations for MATH20C Problems in Chapter 2 of the textbook.
+ */
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
+/**
+ * This class prompts the user for the question they want answered.
+ */
 public class MATH20C_Chapter_Two {
 
         private static final String PROMPT = "What do you want to solve? Choose from "
