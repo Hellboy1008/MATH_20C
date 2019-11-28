@@ -13,6 +13,7 @@
 public class MATH20C_Calculations {
 
     private static final int THREE_DIMENSION = 3;
+    private static final String LINE_NOT_IN_R3 = "The line is not in R3";
     private static final String VECTOR_NOT_IN_R3 = "The vector is not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "The vectors are not in the same dimension";
 
@@ -123,6 +124,10 @@ public class MATH20C_Calculations {
         x = c.lineFromTwoVectors(v1, v2);
         System.out.println(java.util.Arrays.toString(x));
         // test intersectionOfTwoLines
+        double[] l1 = { 2, 1, 0, -1, -1, -1 };
+        double[] l2 = { 3, 0, 5, 2, 0, 6 };
+        x = c.intersectionOfTwoLines(l1, l2);
+        System.out.println(java.util.Arrays.toString(x));
         // test magnitudeOfVector
         double[] v3 = { 2, -1, 2 };
         double y = c.magnitudeOfVector(v3);
@@ -231,27 +236,6 @@ public class MATH20C_Calculations {
         return line;
     }
 
-    // intersection of two lines
-    public static void ChapterOneTopicTwo(double[] line_one, double[] line_two) {
-        double a = (double) (line_one[THREE_DIMENSION]);
-        double b = (double) (-1 * line_two[THREE_DIMENSION]);
-        double c = (double) (line_two[0] - line_one[0]);
-        double d = (double) (line_one[THREE_DIMENSION + 1]);
-        double e = (double) (-1 * line_two[THREE_DIMENSION + 1]);
-        double f = (double) (line_two[1] - line_one[1]);
-        double x = (f * b - e * c) / (b * d - a * e);
-        double y = (c - a * x) / b;
-        if (line_one[THREE_DIMENSION - 1] + line_one[line_one.length - 1] * x == line_two[THREE_DIMENSION - 1]
-                + line_two[line_two.length - 1] * y) {
-            double xCor = line_one[0] + line_one[THREE_DIMENSION] * x;
-            double yCor = line_one[1] + line_one[THREE_DIMENSION + 1] * x;
-            double zCor = line_one[THREE_DIMENSION - 1] + line_one[line_one.length - 1] * x;
-            System.out.printf(ANSWER_INTERSECT_LINE_YES + NEWLINE, xCor, yCor, zCor);
-        } else {
-            System.out.println(ANSWER_INTERSECT_LINE_NO);
-        }
-    }
-
     /**
      * This method calculates the intersection between two lines.
      * 
@@ -261,10 +245,37 @@ public class MATH20C_Calculations {
      * @throws IllegalArgumentException if the line is not in R3
      */
     public double[] intersectionOfTwoLines(double[] line_one, double[] line_two) throws IllegalArgumentException {
+        // variables used for calculation of x and y
+        double a, b, c, d, e, f, x, y;
         // intersection point of the two lines
         double[] intersectionPoint = new double[THREE_DIMENSION];
 
-        // TODO
+        // check if the lines are in R3
+        if (line_one.length != THREE_DIMENSION + THREE_DIMENSION
+                || line_two.length != THREE_DIMENSION + THREE_DIMENSION) {
+            throw new IllegalArgumentException(LINE_NOT_IN_R3);
+        }
+
+        // calculate the x and y values
+        a = line_one[THREE_DIMENSION];
+        b = -1 * line_two[THREE_DIMENSION];
+        c = line_two[0] - line_one[0];
+        d = line_one[THREE_DIMENSION + 1];
+        e = -1 * line_two[THREE_DIMENSION + 1];
+        f = line_two[1] - line_one[1];
+        x = (f * b - e * c) / (b * d - a * e);
+        y = (c - a * x) / b;
+
+        // check to see if intersection exists
+        if (line_one[THREE_DIMENSION - 1] + line_one[line_one.length - 1] * x == line_two[THREE_DIMENSION - 1]
+                + line_two[line_two.length - 1] * y) {
+            intersectionPoint[0] = line_one[0] + line_one[THREE_DIMENSION] * x;
+            intersectionPoint[1] = line_one[1] + line_one[THREE_DIMENSION + 1] * x;
+            intersectionPoint[intersectionPoint.length - 1] = line_one[THREE_DIMENSION - 1]
+                    + line_one[line_one.length - 1] * x;
+        } else {
+            return null;
+        }
 
         return intersectionPoint;
     }
