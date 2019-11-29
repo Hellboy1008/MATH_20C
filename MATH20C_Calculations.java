@@ -12,9 +12,11 @@
  */
 public class MATH20C_Calculations {
 
+    private static final int TWO_DIMENSION = 2;
     private static final int THREE_DIMENSION = 3;
-    private static final String LINE_NOT_IN_R3 = "The line is not in R3";
-    private static final String VECTOR_NOT_IN_R3 = "The vector is not in R3";
+    private static final String LINES_NOT_IN_R3 = "The line/lines are not in R3";
+    private static final String NOT_SQUARE_MATRIX = "The matrix is not a square matrix";
+    private static final String VECTORS_NOT_IN_R3 = "The vector/vectors are not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "The vectors are not in the same dimension";
 
     private static final int TOPIC_NUMBER_ONE = 1, TOPIC_NUMBER_TWO = 2, TOPIC_NUMBER_THREE = 3, TOPIC_NUMBER_FOUR = 4,
@@ -129,8 +131,29 @@ public class MATH20C_Calculations {
         x = c.intersectionOfTwoLines(l1, l2);
         System.out.println(java.util.Arrays.toString(x));
         // test magnitudeOfVector
-        double[] v3 = { 2, -1, 2 };
-        double y = c.magnitudeOfVector(v3);
+        double y = c.magnitudeOfVector(v1);
+        System.out.println(y);
+        // test dot product
+        y = c.dotProductTwoVectors(v1, v2);
+        System.out.println(y);
+        // test unit vector
+        x = c.unitVector(v1);
+        System.out.println(java.util.Arrays.toString(x));
+        // test angle between two vectors
+        y = c.angleBetweenTwoVectors(v1, v2);
+        System.out.println(y);
+        // test orthogonal projection of two vectors
+        x = c.orthogonalProjectionOfTwoVectors(v1, v2);
+        System.out.println(java.util.Arrays.toString(x));
+        // test determinant of square matrix
+        double[][] m = { { 3, 2, -1, 4 }, { 2, 1, 5, 7 }, { 0, 5, 2, -6 }, { -1, 2, 1, 0 } };
+        y = c.determinantOfSquareMatrix(m);
+        System.out.println(y);
+        // test cross product of two vectors
+        x = c.crossProductOfTwoVectors(v1, v2);
+        System.out.println(java.util.Arrays.toString(x));
+        // test area of parallelogram
+        y = c.areaOfParallelogramTwoVectors(v1, v2);
         System.out.println(y);
     }
 
@@ -207,21 +230,20 @@ public class MATH20C_Calculations {
     }
 
     /**
-     * This method calculates the line formed by the two vectors in three
-     * dimensions.
+     * This method calculates the line formed by the two vectors in R3.
      * 
      * @param vector_one The first vector
      * @param vector_two The second vector
      * @return The line formed by two vectors
-     * @throws IllegalArgumentException if the vector is not in R3
+     * @throws IllegalArgumentException if the vectors are not in R3
      */
     public double[] lineFromTwoVectors(double[] vector_one, double[] vector_two) throws IllegalArgumentException {
         // line formed by the two vectors
         double[] line = new double[vector_one.length + vector_two.length];
 
-        // check if the vector is in R3
+        // check if the vectors are in R3
         if (vector_one.length != THREE_DIMENSION || vector_two.length != THREE_DIMENSION) {
-            throw new IllegalArgumentException(VECTOR_NOT_IN_R3);
+            throw new IllegalArgumentException(VECTORS_NOT_IN_R3);
         }
 
         // use vector_one as the first point
@@ -237,12 +259,12 @@ public class MATH20C_Calculations {
     }
 
     /**
-     * This method calculates the intersection between two lines.
+     * This method calculates the intersection between two lines in R3.
      * 
      * @param line_one The first line
      * @param line_two The second line
      * @return The intersection point if it exists, null if it doesn't exist
-     * @throws IllegalArgumentException if the line is not in R3
+     * @throws IllegalArgumentException if the lines are not in R3
      */
     public double[] intersectionOfTwoLines(double[] line_one, double[] line_two) throws IllegalArgumentException {
         // variables used for calculation of x and y
@@ -253,7 +275,7 @@ public class MATH20C_Calculations {
         // check if the lines are in R3
         if (line_one.length != THREE_DIMENSION + THREE_DIMENSION
                 || line_two.length != THREE_DIMENSION + THREE_DIMENSION) {
-            throw new IllegalArgumentException(LINE_NOT_IN_R3);
+            throw new IllegalArgumentException(LINES_NOT_IN_R3);
         }
 
         // calculate the x and y values
@@ -283,15 +305,15 @@ public class MATH20C_Calculations {
     /**
      * This method calculates the magnitude of a vector.
      * 
-     * @param vector_one The vector used in calculation
+     * @param vector The vector used in calculation
      * @return The magnitude of the vector
      */
-    public double magnitudeOfVector(double[] vector_one) {
+    public double magnitudeOfVector(double[] vector) {
         double answer_number = 0;
 
         // find the sum of the squares for each component
-        for (int index = 0; index < vector_one.length; index++) {
-            answer_number += (vector_one[index] * vector_one[index]);
+        for (int index = 0; index < vector.length; index++) {
+            answer_number += (vector[index] * vector[index]);
         }
 
         answer_number = Math.sqrt(answer_number);
@@ -299,88 +321,229 @@ public class MATH20C_Calculations {
         return answer_number;
     }
 
-    // dot product of two vectors
-    public static double ChapterOneTopicFour(double[] vector_one, double[] vector_two, boolean print) {
-        double answer_number = vector_one[0] * vector_two[0] + vector_one[1] * vector_two[1]
-                + vector_one[THREE_DIMENSION - 1] * vector_two[THREE_DIMENSION - 1];
-        if (print == true) {
-            System.out.printf(ANSWER_DOT_PRODUCT + NEWLINE, answer_number);
+    /**
+     * This method calculates the dot product between two vectors.
+     * 
+     * @param vector_one The first vector
+     * @param vector_two The second vector
+     * @return The dot product of the two vectors
+     * @throws IllegalArgumentException if the two vectors are not in the same
+     *                                  dimension
+     */
+    public double dotProductTwoVectors(double[] vector_one, double[] vector_two) throws IllegalArgumentException {
+        // result for dot product
+        double dotProduct = 0;
+
+        // check if the vectors are in the same dimension
+        if (vector_one.length != vector_two.length) {
+            throw new IllegalArgumentException(VECTORS_NOT_IN_SAME_DIMENSION);
         }
-        return answer_number;
+
+        // Calculate dot product
+        for (int index = 0; index < vector_one.length; index++) {
+            dotProduct += vector_one[index] * vector_two[index];
+        }
+
+        return dotProduct;
     }
 
-    // unit vector
-    public static void ChapterOneTopicFive(double[] vector_one) {
-        double[] answer_vector = new double[THREE_DIMENSION];
-        double magnitude = 0;
-        answer_vector[0] = (double) (vector_one[0]) / magnitude;
-        answer_vector[1] = (double) (vector_one[1]) / magnitude;
-        answer_vector[THREE_DIMENSION - 1] = (double) (vector_one[THREE_DIMENSION - 1]) / magnitude;
-        System.out.printf(ANSWER_VECTOR + NEWLINE, answer_vector[0], answer_vector[1],
-                answer_vector[THREE_DIMENSION - 1]);
+    /**
+     * This method calculates the unit vector for the given vector.
+     * 
+     * @param vector The vector that is converted to a unit vector
+     * @return The unit vector for the given vector
+     */
+    public double[] unitVector(double[] vector) {
+        // magnitude of the vector
+        double magnitude = magnitudeOfVector(vector);
+        // resulting unit vector
+        double[] unitVector = new double[vector.length];
+
+        // calculate unit vector
+        for (int index = 0; index < vector.length; index++) {
+            unitVector[index] = vector[index] / magnitude;
+        }
+
+        return unitVector;
     }
 
-    // angle between two vectors
-    public static void ChapterOneTopicSix(double[] vector_one, double[] vector_two) {
-        double dot_product = ChapterOneTopicFour(vector_one, vector_two, false);
-        double magnitude_vector_one = 0;
-        double magnitude_vector_two = 0;
-        double answer_angle = Math.acos(dot_product / (magnitude_vector_one * magnitude_vector_two));
-        System.out.printf(ANSWER_ANGLE + NEWLINE, answer_angle);
+    /**
+     * This method calculates the angle between two vectors
+     * 
+     * @param vector_one The first vector
+     * @param vector_two The second vector
+     * @return The angle between the two vectors
+     */
+    public double angleBetweenTwoVectors(double[] vector_one, double[] vector_two) {
+        // angle between two vectors
+        double angle = 0;
+        // dot product between two vectors
+        double dotProduct = dotProductTwoVectors(vector_one, vector_two);
+        // magnitude of first vector
+        double magnitudeVectorOne = magnitudeOfVector(vector_one);
+        // magnitude of second vector
+        double magnitudeVectorTwo = magnitudeOfVector(vector_two);
+
+        // calculate angle
+        angle = Math.acos(dotProduct / (magnitudeVectorOne * magnitudeVectorTwo));
+
+        return angle;
     }
 
-    // orthogonal projection of two vectors
-    public static void ChapterOneTopicSeven(double[] vector_one, double[] vector_two) {
-        double[] answer_vector = new double[THREE_DIMENSION];
-        double magnitude_vector_two = 0;
-        double dot_product = ChapterOneTopicFour(vector_one, vector_two, false);
-        answer_vector[0] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSION - 1)) * vector_two[0];
-        answer_vector[1] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSION - 1)) * vector_two[1];
-        answer_vector[THREE_DIMENSION - 1] = (dot_product / Math.pow(magnitude_vector_two, THREE_DIMENSION - 1))
-                * vector_two[THREE_DIMENSION - 1];
-        System.out.printf(ANSWER_ORTHOGONAL + NEWLINE, answer_vector[0], answer_vector[1],
-                answer_vector[THREE_DIMENSION - 1]);
+    /**
+     * This method calculates the orthogonal projection of the first vector on the
+     * second vector.
+     * 
+     * @param vector_one The first vector
+     * @param vector_two The second vector
+     * @return The orthogonal projection of the first vector on the second vector
+     */
+    public double[] orthogonalProjectionOfTwoVectors(double[] vector_one, double[] vector_two) {
+        // dot product of the two vectors
+        double dotProduct = dotProductTwoVectors(vector_one, vector_two);
+        // magnitude of second vector
+        double magnitudeVectorTwo = magnitudeOfVector(vector_two);
+        // result of orthogonal projection
+        double[] projection = new double[vector_one.length];
+
+        // calculate projection
+        for (int index = 0; index < vector_two.length; index++) {
+            projection[index] = vector_two[index] * (dotProduct / (magnitudeVectorTwo * magnitudeVectorTwo));
+        }
+
+        return projection;
     }
 
-    // determinant of 3x3 matrix
-    public static void ChapterOneTopicEight(double[][] matrix_one) {
-        double i_component = matrix_one[0][0] * (matrix_one[1][1] * matrix_one[THREE_DIMENSION - 1][THREE_DIMENSION - 1]
-                - matrix_one[1][THREE_DIMENSION - 1] * matrix_one[THREE_DIMENSION - 1][1]);
-        double j_component = matrix_one[0][1] * (matrix_one[1][0] * matrix_one[THREE_DIMENSION - 1][THREE_DIMENSION - 1]
-                - matrix_one[1][THREE_DIMENSION - 1] * matrix_one[THREE_DIMENSION - 1][0]);
-        double k_component = matrix_one[0][THREE_DIMENSION - 1] * (matrix_one[1][0] * matrix_one[THREE_DIMENSION - 1][1]
-                - matrix_one[1][1] * matrix_one[THREE_DIMENSION - 1][0]);
-        double answer_number = i_component - j_component + k_component;
-        System.out.printf(ANSWER_DETERMINANT + NEWLINE, answer_number);
+    /**
+     * This method calculates the determinant of a square matrix.
+     * 
+     * @param matrix The square matrix used to calculate the determinant
+     * @return The determinant of the square matrix
+     * @throws IllegalArgumentException if the matrix is not a square matrix
+     */
+    public double determinantOfSquareMatrix(double[][] matrix) {
+        // determinant of matrix
+        double determinant = 0;
+        // array for signs in matrix
+        double[] signs = new double[matrix.length];
+        // sub matrix for recursive calls
+        double[][] subMatrix;
+
+        // if the matrix is not a square matrix
+        for (int row = 0; row < matrix.length; row++) {
+            if (matrix.length != matrix[row].length) {
+                throw new IllegalArgumentException(NOT_SQUARE_MATRIX);
+            }
+        }
+
+        // base case for 2x2 matrix
+        if (matrix.length == TWO_DIMENSION) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+
+        // fill signs matrix
+        signs[0] = 1;
+        for (int index = 1; index < signs.length; index++) {
+            signs[index] = -1 * signs[index - 1];
+        }
+
+        // recursive call for bigger square matrices
+        for (int indexOne = 0; indexOne < 1; indexOne++) {
+            for (int indexTwo = 0; indexTwo < matrix[indexOne].length; indexTwo++) {
+                // create sub matrix
+                subMatrix = createSubMatrix(matrix, indexOne, indexTwo);
+                // calculate determinant
+                determinant += matrix[indexOne][indexTwo] * determinantOfSquareMatrix(subMatrix) * signs[indexTwo];
+            }
+        }
+
+        return determinant;
     }
 
-    // cross product of two vectors
-    public static double[] ChapterOneTopicNine(double[] vector_one, double[] vector_two, boolean print) {
-        double[] answer_vector = new double[THREE_DIMENSION];
-        answer_vector[0] = vector_one[1] * vector_two[THREE_DIMENSION - 1]
+    /**
+     * This method creates a sub matrix for calculating the determinant of a square
+     * matrix.
+     * 
+     * @param originalMatrix The original square matrix
+     * @param avoidRow       The row to avoid in sub matrix
+     * @param avoidCol       The column to avoid in sub matrix
+     * @return The sub matrix for the given matrix
+     */
+    private double[][] createSubMatrix(double[][] originalMatrix, int avoidRow, int avoidCol) {
+        // index for row of sub matrix
+        int subIndexRow = 0;
+        // index for col of sub matrix
+        int subIndexCol = 0;
+        // sub matrix for original matrix
+        double[][] subMatrix = new double[originalMatrix.length - 1][originalMatrix.length - 1];
+
+        // fill sub matrix
+        for (int indexOne = 0; indexOne < originalMatrix.length; indexOne++) {
+            for (int indexTwo = 0; indexTwo < originalMatrix[indexOne].length; indexTwo++) {
+                // add value to sub matrix if valid
+                if (indexOne != avoidRow && indexTwo != avoidCol) {
+                    subMatrix[subIndexRow][subIndexCol] = originalMatrix[indexOne][indexTwo];
+
+                    // increment sub index for row and column
+                    if (subIndexCol == subMatrix[subIndexRow].length - 1) {
+                        subIndexRow++;
+                        subIndexCol = 0;
+                    } else {
+                        subIndexCol++;
+                    }
+                }
+
+            }
+        }
+
+        return subMatrix;
+    }
+
+    /**
+     * This method calculates the cross product of two vectors in R3.
+     * 
+     * @param vector_one The first vector
+     * @param vector_two The second vector
+     * @return The cross product of the two vectors
+     * @throws IllegalArgumentException if the vectors are not in R3
+     */
+    public double[] crossProductOfTwoVectors(double[] vector_one, double[] vector_two) throws IllegalArgumentException {
+        // result of cross product
+        double[] cross_product = new double[vector_one.length];
+
+        // if the vectors are not in R3
+        if (vector_one.length != THREE_DIMENSION || vector_two.length != THREE_DIMENSION) {
+            throw new IllegalArgumentException(VECTORS_NOT_IN_R3);
+        }
+
+        // calculate cross product
+        cross_product[0] = vector_one[1] * vector_two[THREE_DIMENSION - 1]
                 - vector_one[THREE_DIMENSION - 1] * vector_two[1];
-        answer_vector[1] = -1
+        cross_product[1] = -1
                 * (vector_one[0] * vector_two[THREE_DIMENSION - 1] - vector_one[THREE_DIMENSION - 1] * vector_two[0]);
-        answer_vector[THREE_DIMENSION - 1] = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
-        if (print == true) {
-            System.out.printf(ANSWER_CROSS_PRODUCT + NEWLINE, answer_vector[0], answer_vector[1],
-                    answer_vector[THREE_DIMENSION - 1]);
-        }
-        return answer_vector;
+        cross_product[THREE_DIMENSION - 1] = vector_one[0] * vector_two[1] - vector_one[1] * vector_two[0];
+
+        return cross_product;
     }
 
-    // area of parallelogram spanned by two vectors
-    public static void ChapterOneTopicTen(double[] vector_one, double[] vector_two) {
-        double[] cross_product = ChapterOneTopicNine(vector_one, vector_two, false);
-        double answer_number = 0;
-        System.out.printf(ANSWER_PARALLELOGRAM + NEWLINE, answer_number);
+    /**
+     * The area of a parallelogram spanned by two vectors in R3
+     * 
+     * @param vector_one The first vector
+     * @param vector_two The second vector
+     * @return The area of parallelogram
+     */
+    public double areaOfParallelogramTwoVectors(double[] vector_one, double[] vector_two) {
+        // cross product of the two vectors
+        double[] crossProduct = crossProductOfTwoVectors(vector_one, vector_two);
+
+        return magnitudeOfVector(crossProduct);
     }
 
     // volume of parallelepiped spanned by three vectors
     public static double ChapterOneTopicEleven(double[] vector_one, double[] vector_two, double[] vector_three,
             boolean print) {
-        double determinant = ChapterOneTopicFour(ChapterOneTopicNine(vector_one, vector_two, false), vector_three,
-                false);
+        double determinant = 0;
         double answer_number = Math.abs(determinant);
         if (print == true) {
             System.out.printf(ANSWER_PARALLELPIPED + NEWLINE, answer_number);
@@ -406,7 +569,7 @@ public class MATH20C_Calculations {
         vector_two[0] = point_three[0] - point_two[0];
         vector_two[1] = point_three[1] - point_two[1];
         vector_two[THREE_DIMENSION - 1] = point_three[THREE_DIMENSION - 1] - point_two[THREE_DIMENSION - 1];
-        double[] cross_product = ChapterOneTopicNine(vector_one, vector_two, false);
+        double[] cross_product = null;
         // A(x-x0) + B(y-y0) + C(z-z0) = 0
         double d_value = cross_product[0] * point_one[0] + cross_product[1] * point_one[1]
                 + cross_product[THREE_DIMENSION - 1] * point_one[THREE_DIMENSION - 1];
@@ -445,7 +608,7 @@ public class MATH20C_Calculations {
     public static void ChapterOneTopicFifthteen(double[] line_one, double[] plane_one) {
         double[] line_one_direction = { line_one[THREE_DIMENSION], line_one[THREE_DIMENSION + 1],
                 line_one[line_one.length - 1] };
-        double dot_product = ChapterOneTopicFour(line_one_direction, plane_one, false);
+        double dot_product = 0;
         if (dot_product == 0) {
             System.out.println(ANSWER_INTERSECT_POINT_NO);
         } else {
@@ -468,7 +631,7 @@ public class MATH20C_Calculations {
         double x = (plane_two[THREE_DIMENSION] * plane_one[1] - plane_two[1] * plane_one[THREE_DIMENSION])
                 / (plane_one[1] * plane_two[0] - plane_one[0] * plane_two[1]);
         double y = (plane_one[THREE_DIMENSION] - plane_one[0] * x) / plane_one[1];
-        double[] cross_product = ChapterOneTopicNine(plane_one, plane_two, false);
+        double[] cross_product = null;
         System.out.printf(ANSWER_INTERSECT_PLANE + NEWLINE, x, y, cross_product[0], cross_product[1],
                 cross_product[THREE_DIMENSION - 1]);
     }
