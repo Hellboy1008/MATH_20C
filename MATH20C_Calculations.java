@@ -14,98 +14,14 @@ public class MATH20C_Calculations {
 
     private static final int TWO_DIMENSION = 2;
     private static final int THREE_DIMENSION = 3;
+
     private static final String LINES_NOT_IN_R3 = "The line/lines are not in R3";
     private static final String NOT_SQUARE_MATRIX = "The matrix is not a square matrix";
+    private static final String PLANES_NOT_IN_R3 = "The plane/planes are not in R3";
+    private static final String POINTS_NOT_IN_R3 = "The point/points are not in R3";
+    private static final String POINTS_NOT_IN_SAME_DIMENSION = "The points are not in the same dimension";
     private static final String VECTORS_NOT_IN_R3 = "The vector/vectors are not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "The vectors are not in the same dimension";
-
-    private static final int TOPIC_NUMBER_ONE = 1, TOPIC_NUMBER_TWO = 2, TOPIC_NUMBER_THREE = 3, TOPIC_NUMBER_FOUR = 4,
-            TOPIC_NUMBER_FIVE = 5, TOPIC_NUMBER_SIX = 6, TOPIC_NUMBER_SEVEN = 7, TOPIC_NUMBER_EIGHT = 8,
-            TOPIC_NUMBER_NINE = 9, TOPIC_NUMBER_TEN = 10, TOPIC_NUMBER_ELEVEN = 11, TOPIC_NUMBER_TWELVE = 12,
-            TOPIC_NUMBER_THIRTEEN = 13, TOPIC_NUMBER_FOURTEEN = 14, TOPIC_NUMBER_FIFTEEN = 15,
-            TOPIC_NUMBER_SIXTEEN = 16;
-    private static final char COMMA = ',', PLUS = '+', MINUS = '-', SPACE = ' ';
-    private static final String NEWLINE = "\n";
-    // Chapter One Answers
-    private static final String ANSWER_LINE = "Line: (%.3f,%.3f,%.3f) + t(%.3f,%.3f,%.3f)",
-            ANSWER_INTERSECT_LINE_YES = "The two lines intersect at:\n" + "(%.3f,%.3f,%.3f)",
-            ANSWER_INTERSECT_LINE_NO = "The two lines don't intersect", ANSWER_MAGNITUDE = "Magnitude = %.3f",
-            ANSWER_DOT_PRODUCT = "Dot Product = %.3f", ANSWER_VECTOR = "Vector = (%.3f,%.3f,%.3f)",
-            ANSWER_ANGLE = "Angle = %.3f",
-            ANSWER_ORTHOGONAL = "The orthogonal projection of vector 1 on vector 2 is: (%.3f,%.3f,%.3f)",
-            ANSWER_DETERMINANT = "Determinant = %.3f", ANSWER_CROSS_PRODUCT = "Cross Product = (%.3f,%.3f,%.3f)",
-            ANSWER_PARALLELOGRAM = "Area of the parallelogram = %.3f",
-            ANSWER_PARALLELPIPED = "Volume of parallelpiped = %.3f", ANSWER_COPLANAR = "Yes, the vectors are coplanar",
-            ANSWER_NOT_COPLANAR = "No, the vectors are not coplanar",
-            ANSWER_PLANE = "The equation of the plane is %.3fx %c %.3fy %c %.3fz = %.3f",
-            ANSWER_INTERSECT_POINT_NO = "The line and the plane do not intersect",
-            ANSWER_INTERSECT_POINT_YES = "The line and the plane intersect at (%.3f,%.3f,%.3f)",
-            ANSWER_INTERSECT_PLANE = "The intersection of the two planes is: (%.3f,%.3f,0) + t(%.3f,%.3f,%.3f)";
-    // Chapter Two Answers
-
-    public void ChapterOne(int topicNumber, String inputOne) {
-    }
-
-    public void ChapterOne(int topicNumber, String inputOne, String inputTwo) {
-    }
-
-    public void ChapterOne(int topicNumber, String inputOne, String inputTwo, String inputThree) {
-        double[] inputOneArray = interpretStringToArray(inputOne);
-        double[] inputTwoArray = interpretStringToArray(inputTwo);
-        double[] inputThreeArray = interpretStringToArray(inputThree);
-        switch (topicNumber) {
-        case TOPIC_NUMBER_ELEVEN:
-            ChapterOneTopicEleven(inputOneArray, inputTwoArray, inputThreeArray, true);
-            break;
-        case TOPIC_NUMBER_TWELVE:
-            ChapterOneTopicTwelve(inputOneArray, inputTwoArray, inputThreeArray);
-            break;
-        case TOPIC_NUMBER_THIRTEEN:
-            ChapterOneTopicThirteen(inputOneArray, inputTwoArray, inputThreeArray);
-            break;
-        }
-    }
-
-    private static double[] interpretStringToArray(String input) {
-        double[] answer;
-        int numOfCommas = 0;
-        // count the number of commas
-        for (int index = 0; index < input.length(); index++) {
-            if (input.charAt(index) == COMMA) {
-                numOfCommas++;
-            }
-        }
-        // put the number in the strings into the array
-        if (numOfCommas == 0) {
-            return null;
-        } else {
-            answer = new double[numOfCommas + 1];
-            int arrayIndex = 0, commaIndex = 0;
-            for (int index = 0; index < input.length(); index++) {
-                if (input.charAt(index) == COMMA) {
-                    answer[arrayIndex] = Double.parseDouble(input.substring(commaIndex, index));
-                    arrayIndex++;
-                    commaIndex = index + 1;
-                }
-            }
-            answer[arrayIndex] = Double.parseDouble(input.substring(commaIndex));
-        }
-        return answer;
-    }
-
-    private static double[][] convertToMatrix(double[] input) {
-        int matrixSize = (int) Math.sqrt(input.length);
-        double[][] matrix = new double[matrixSize][matrixSize];
-        int inputMatrixIndex = 0;
-        // turn double[] into 2-D array represented by double[][]
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                matrix[row][col] = input[inputMatrixIndex];
-                inputMatrixIndex++;
-            }
-        }
-        return matrix;
-    }
 
     public static void main(String args[]) {
         MATH20C_Calculations c = new MATH20C_Calculations();
@@ -155,6 +71,34 @@ public class MATH20C_Calculations {
         // test area of parallelogram
         y = c.areaOfParallelogramTwoVectors(v1, v2);
         System.out.println(y);
+        // test volume of parallelepiped
+        y = c.volumeOfParallelepipedThreeVectors(v1, v2, v1);
+        System.out.println(y);
+        // test coplanar
+        boolean z = false;
+        z = c.threeVectorsCoplanar(v1, v2, v1);
+        System.out.println(z);
+        // test equation of plane given three points
+        double[] p1 = { 3, -1, 4 };
+        double[] p2 = { 0, 0, 5 };
+        double[] p3 = { 5, 6, -1 };
+        x = c.equationOfPlaneThreePoints(p1, p2, p3);
+        System.out.println(java.util.Arrays.toString(x));
+        // test equation of plane given point and normal vector
+        double[] p4 = { 1, 2, 3 };
+        double[] v3 = { 15, 9, -12 };
+        x = c.equationOfPlanePointAndNormalVector(p4, v3);
+        System.out.println(java.util.Arrays.toString(x));
+        // test intersection of line and plane
+        double[] l3 = { 2, 1, 1, 3, 2, 4 };
+        double[] pl1 = { 2, -3, 1, -2 };
+        x = c.intersectionOfLineAndPlane(l3, pl1);
+        System.out.println(java.util.Arrays.toString(x));
+        // test intersection of two planes
+        double[] pl2 = { 6, 3, 1, -5 };
+        double[] pl3 = { 1, 7, -1, -2 };
+        x = c.intersectionOfTwoPlanes(pl2, pl3);
+        System.out.println(java.util.Arrays.toString(x));
     }
 
     /**
@@ -312,8 +256,8 @@ public class MATH20C_Calculations {
         double answer_number = 0;
 
         // find the sum of the squares for each component
-        for (int index = 0; index < vector.length; index++) {
-            answer_number += (vector[index] * vector[index]);
+        for (double val : vector) {
+            answer_number += val * val;
         }
 
         answer_number = Math.sqrt(answer_number);
@@ -540,102 +484,283 @@ public class MATH20C_Calculations {
         return magnitudeOfVector(crossProduct);
     }
 
-    // volume of parallelepiped spanned by three vectors
-    public static double ChapterOneTopicEleven(double[] vector_one, double[] vector_two, double[] vector_three,
-            boolean print) {
-        double determinant = 0;
-        double answer_number = Math.abs(determinant);
-        if (print == true) {
-            System.out.printf(ANSWER_PARALLELPIPED + NEWLINE, answer_number);
-        }
-        return answer_number;
+    /**
+     * This methods returns the volume of a parallelepiped spanned by three vectors
+     * in R3.
+     * 
+     * @param vector_one   The first vector
+     * @param vector_two   The second vector
+     * @param vector_three The third vector
+     * @return The volume of the parallelepiped
+     */
+    public double volumeOfParallelepipedThreeVectors(double[] vector_one, double[] vector_two, double[] vector_three) {
+        // cross product of the first two vectors
+        double[] crossProduct = crossProductOfTwoVectors(vector_one, vector_two);
+        // dot product of the third vector and the cross product
+        double dotProduct = dotProductTwoVectors(crossProduct, vector_three);
+
+        return Math.abs(dotProduct);
     }
 
-    // determine if three vectors are coplanar
-    public static void ChapterOneTopicTwelve(double[] vector_one, double[] vector_two, double[] vector_three) {
-        if (ChapterOneTopicEleven(vector_one, vector_two, vector_three, false) == 0) {
-            System.out.println(ANSWER_COPLANAR);
-        } else {
-            System.out.println(ANSWER_NOT_COPLANAR);
-        }
+    /**
+     * This method determines whether three vectors in R3 are coplanar
+     * 
+     * @param vector_one   The first vector
+     * @param vector_two   The second vector
+     * @param vector_three The third vector
+     * @return True if the vectors are coplanar, false if not
+     */
+    public boolean threeVectorsCoplanar(double[] vector_one, double[] vector_two, double[] vector_three) {
+        return volumeOfParallelepipedThreeVectors(vector_one, vector_two, vector_three) == 0;
     }
 
-    // equation of a plane given three points
-    public static void ChapterOneTopicThirteen(double[] point_one, double[] point_two, double[] point_three) {
-        double[] vector_one = new double[THREE_DIMENSION], vector_two = new double[THREE_DIMENSION];
-        vector_one[0] = point_two[0] - point_one[0];
-        vector_one[1] = point_two[1] - point_one[1];
-        vector_one[THREE_DIMENSION - 1] = point_two[THREE_DIMENSION - 1] - point_one[THREE_DIMENSION - 1];
-        vector_two[0] = point_three[0] - point_two[0];
-        vector_two[1] = point_three[1] - point_two[1];
-        vector_two[THREE_DIMENSION - 1] = point_three[THREE_DIMENSION - 1] - point_two[THREE_DIMENSION - 1];
-        double[] cross_product = null;
-        // A(x-x0) + B(y-y0) + C(z-z0) = 0
-        double d_value = cross_product[0] * point_one[0] + cross_product[1] * point_one[1]
-                + cross_product[THREE_DIMENSION - 1] * point_one[THREE_DIMENSION - 1];
-        char yComponent_sign = PLUS, zComponent_sign = PLUS;
-        if (cross_product[1] < 0) {
-            yComponent_sign = MINUS;
-            cross_product[1] = -1 * cross_product[1];
+    /**
+     * This method calculates the equation of a plane in R3 given three points in
+     * R3.
+     * 
+     * @param point_one   The first point
+     * @param point_two   The second point
+     * @param point_three The third point
+     * @return The equation of the plane
+     * @throws IllegalArgumentException if the points are not in the same dimension
+     *                                  or if it is not in R3
+     */
+    public double[] equationOfPlaneThreePoints(double[] point_one, double[] point_two, double[] point_three)
+            throws IllegalArgumentException {
+        // cross product of the two vectors
+        double[] crossProduct = new double[point_one.length];
+        // equation of the plane
+        double[] plane = new double[point_one.length + 1];
+        // vector from point one to point two
+        double[] vectorP1P2 = new double[point_one.length];
+        // vector from point one to point three
+        double[] vectorP1P3 = new double[point_one.length];
+
+        // check if points are all in the same dimension
+        if (point_one.length != point_two.length || point_one.length != point_three.length) {
+            throw new IllegalArgumentException(POINTS_NOT_IN_SAME_DIMENSION);
         }
-        if (cross_product[THREE_DIMENSION - 1] < 0) {
-            zComponent_sign = MINUS;
-            cross_product[THREE_DIMENSION - 1] = -1 * cross_product[THREE_DIMENSION - 1];
+
+        // check if points are in R3
+        if (point_one.length != THREE_DIMENSION) {
+            throw new IllegalArgumentException(POINTS_NOT_IN_R3);
         }
-        System.out.printf(ANSWER_PLANE + NEWLINE, cross_product[0], yComponent_sign, cross_product[1], zComponent_sign,
-                cross_product[THREE_DIMENSION - 1], d_value);
+
+        // initialize the two vectors
+        vectorP1P2[0] = point_two[0] - point_one[0];
+        vectorP1P2[1] = point_two[1] - point_one[1];
+        vectorP1P2[THREE_DIMENSION - 1] = point_two[THREE_DIMENSION - 1] - point_one[THREE_DIMENSION - 1];
+        vectorP1P3[0] = point_three[0] - point_one[0];
+        vectorP1P3[1] = point_three[1] - point_one[1];
+        vectorP1P3[THREE_DIMENSION - 1] = point_three[THREE_DIMENSION - 1] - point_one[THREE_DIMENSION - 1];
+
+        // calculate the cross product of the two vectors
+        crossProduct = crossProductOfTwoVectors(vectorP1P2, vectorP1P3);
+
+        // calculate values for the plane
+        plane[0] = crossProduct[0];
+        plane[1] = crossProduct[1];
+        plane[THREE_DIMENSION - 1] = crossProduct[THREE_DIMENSION - 1];
+        plane[THREE_DIMENSION] = crossProduct[0] * point_one[0] + crossProduct[1] * point_one[1]
+                + crossProduct[THREE_DIMENSION - 1] * point_one[THREE_DIMENSION - 1];
+
+        return reduceCoefficientsPlane(plane);
     }
 
-    // equation of a plane given normal vector and point
-    public static void ChapterOneTopicFourteen(double[] vector_one, double[] point_one) {
-        // A(x-x0) + B(y-y0) + C(z-z0) = 0
-        double d_value = vector_one[0] * point_one[0] + vector_one[1] * point_one[1]
-                + vector_one[THREE_DIMENSION - 1] * point_one[THREE_DIMENSION - 1];
-        char yComponent_sign = PLUS, zComponent_sign = PLUS;
-        if (vector_one[1] < 0) {
-            yComponent_sign = MINUS;
-            vector_one[1] = -1 * vector_one[1];
+    /**
+     * This method reduces the coefficients of a plane using the greatest common
+     * divisor.
+     * 
+     * @param plane The original plane
+     * @return The plane with reduced coefficients
+     */
+    public double[] reduceCoefficientsPlane(double[] plane) {
+        // divisibility by the smallest divisor
+        boolean divisibleBySmallestDivisor;
+        // divisibility by -1
+        boolean divisibleNegOne = true;
+        // smallest coefficient
+        double smallestCoefficient = plane[0];
+        // smallest divisor
+        double smallestDivisor;
+
+        // check if the coefficients are divisible by -1
+        for (double val : plane) {
+            if (val >= 0) {
+                divisibleNegOne = false;
+            }
         }
-        if (vector_one[THREE_DIMENSION - 1] < 0) {
-            zComponent_sign = MINUS;
-            vector_one[THREE_DIMENSION - 1] = -1 * vector_one[THREE_DIMENSION - 1];
+
+        // if the coefficients are divisible by -1, divide it by -1
+        if (divisibleNegOne == true) {
+            for (int index = 0; index < plane.length; index++) {
+                plane[index] /= -1;
+            }
         }
-        System.out.printf(ANSWER_PLANE + NEWLINE, vector_one[0], yComponent_sign, vector_one[1], zComponent_sign,
-                vector_one[THREE_DIMENSION - 1], d_value);
+
+        // find smallest coefficient
+        for (double val : plane) {
+            if (val < smallestCoefficient) {
+                smallestCoefficient = val;
+            }
+        }
+
+        // find smallest divisor
+        smallestDivisor = Math.abs(smallestCoefficient);
+        while (smallestDivisor != 1) {
+            divisibleBySmallestDivisor = true;
+            // see if each coefficient is divisible by the smallest divisor
+            for (double val : plane) {
+                if (val % smallestDivisor != 0) {
+                    divisibleBySmallestDivisor = false;
+                }
+            }
+            // if the coefficients are divisible, we have found the smallest divisor
+            if (divisibleBySmallestDivisor == true) {
+                break;
+            }
+            smallestDivisor--;
+        }
+
+        // divide each coefficient by smallest divisor
+        for (int index = 0; index < plane.length; index++) {
+            plane[index] /= smallestDivisor;
+        }
+
+        return plane;
     }
 
-    // intersection of line and plane
-    public static void ChapterOneTopicFifthteen(double[] line_one, double[] plane_one) {
-        double[] line_one_direction = { line_one[THREE_DIMENSION], line_one[THREE_DIMENSION + 1],
-                line_one[line_one.length - 1] };
-        double dot_product = 0;
-        if (dot_product == 0) {
-            System.out.println(ANSWER_INTERSECT_POINT_NO);
-        } else {
-            double time = (-1 * plane_one[THREE_DIMENSION] - plane_one[0] * line_one[0] - plane_one[1] * line_one[1]
-                    - plane_one[THREE_DIMENSION - 1] * line_one[THREE_DIMENSION - 1])
-                    / (plane_one[0] * line_one[THREE_DIMENSION] + plane_one[1] * line_one[THREE_DIMENSION + 1]
-                            + plane_one[THREE_DIMENSION - 1] * line_one[line_one.length - 1]);
-            System.out.println(time);
-            double xCor = line_one[THREE_DIMENSION] * time + line_one[0];
-            double yCor = line_one[THREE_DIMENSION + 1] * time + line_one[1];
-            double zCor = line_one[line_one.length - 1] * time + line_one[THREE_DIMENSION - 1];
-            System.out.printf(ANSWER_INTERSECT_POINT_YES + NEWLINE, xCor, yCor, zCor);
+    /**
+     * This method calculates the equation of a plane in R3 given a point in R3 and
+     * a normal vector in R3.
+     * 
+     * @param point  The point used to find the plane
+     * @param vector The vector used to find the plane
+     * @return The equation of the plane
+     * @throws IllegalArgumentException if the point or vector is not in R3
+     */
+    public double[] equationOfPlanePointAndNormalVector(double[] point, double[] vector)
+            throws IllegalArgumentException {
+        // equation of the plane
+        double[] plane = new double[point.length + 1];
+
+        // check if the point is in R3
+        if (point.length != THREE_DIMENSION) {
+            throw new IllegalArgumentException(POINTS_NOT_IN_R3);
         }
+
+        // check if the vector is in R3
+        if (vector.length != THREE_DIMENSION) {
+            throw new IllegalArgumentException(VECTORS_NOT_IN_R3);
+        }
+
+        // calculate the values for the plane
+        plane[0] = vector[0];
+        plane[1] = vector[1];
+        plane[THREE_DIMENSION - 1] = vector[THREE_DIMENSION - 1];
+        plane[THREE_DIMENSION] = vector[0] * point[0] + vector[1] * point[1]
+                + vector[THREE_DIMENSION - 1] * point[THREE_DIMENSION - 1];
+
+        return reduceCoefficientsPlane(plane);
     }
 
-    // intersection of two planes
-    public static void ChapterOneTopicSixteen(double[] plane_one, double[] plane_two) {
-        plane_one[THREE_DIMENSION] = -1 * plane_one[THREE_DIMENSION];
-        plane_two[THREE_DIMENSION] = -1 * plane_two[THREE_DIMENSION];
-        double x = (plane_two[THREE_DIMENSION] * plane_one[1] - plane_two[1] * plane_one[THREE_DIMENSION])
+    /**
+     * This method determines the intersection between a line and a plane in R3.
+     * 
+     * @param line  The line used to find intersection
+     * @param plane The plane used to find intersection
+     * @return The intersection between the line and plane if it exists
+     * @throws IllegalArgumentException if the line or plane is not in R3
+     */
+    public double[] intersectionOfLineAndPlane(double[] line, double[] plane) throws IllegalArgumentException {
+        // dot product of line and plane
+        double dotProduct;
+        // time component of intersection
+        double time;
+        // directional vector of the line
+        double[] directionVector = new double[plane.length - 1];
+        // intersection of the line and plane
+        double[] intersection = new double[plane.length - 1];
+        // orthogonal vector of the plane
+        double[] orthogonalVector = new double[plane.length - 1];
+
+        // check if line is in R3
+        if (line.length != THREE_DIMENSION + THREE_DIMENSION) {
+            throw new IllegalArgumentException(LINES_NOT_IN_R3);
+        }
+
+        // check if plane is in R3
+        if (plane.length != THREE_DIMENSION + 1) {
+            throw new IllegalArgumentException(PLANES_NOT_IN_R3);
+        }
+
+        // fill directional vector and orthogonal vector
+        directionVector[0] = line[THREE_DIMENSION];
+        directionVector[1] = line[THREE_DIMENSION + 1];
+        directionVector[THREE_DIMENSION - 1] = line[line.length - 1];
+        orthogonalVector[0] = plane[0];
+        orthogonalVector[1] = plane[1];
+        orthogonalVector[THREE_DIMENSION - 1] = plane[THREE_DIMENSION - 1];
+
+        // calculate dot product
+        dotProduct = dotProductTwoVectors(directionVector, orthogonalVector);
+
+        // if dot product is 0, there is no intersection
+        if (dotProduct == 0) {
+            return null;
+        }
+
+        // calculate intersection
+        time = (-1 * plane[THREE_DIMENSION] - plane[0] * line[0] - plane[1] * line[1]
+                - plane[THREE_DIMENSION - 1] * line[THREE_DIMENSION - 1])
+                / (plane[0] * line[THREE_DIMENSION] + plane[1] * line[THREE_DIMENSION + 1]
+                        + plane[THREE_DIMENSION - 1] * line[line.length - 1]);
+        intersection[0] = line[THREE_DIMENSION] * time + line[0];
+        intersection[1] = line[THREE_DIMENSION + 1] * time + line[1];
+        intersection[THREE_DIMENSION - 1] = line[THREE_DIMENSION] * time + line[THREE_DIMENSION - 1];
+
+        return intersection;
+    }
+
+    /**
+     * This method calculates the intersection of two planes in R3.
+     * 
+     * @param plane_one The first plane
+     * @param plane_two The second plane
+     * @return The intersection of the two planes if it exists
+     */
+    public double[] intersectionOfTwoPlanes(double[] plane_one, double[] plane_two) {
+        // cross product of the two planes
+        double[] crossProduct = new double[plane_one.length - 1];
+        // intersection of the two planes
+        double[] intersection = new double[THREE_DIMENSION + THREE_DIMENSION];
+        // orthogonal vector for the first plane
+        double[] orthogonalVectorP1 = new double[plane_one.length - 1];
+        // orthogonal vector for the second plane
+        double[] orthogonalVectorP2 = new double[plane_two.length - 1];
+
+        // reverse sign for last component of the planes
+        plane_one[plane_one.length - 1] *= -1;
+        plane_two[plane_two.length - 1] *= -1;
+
+        // find orthogonal vectors
+        orthogonalVectorP1[0] = plane_one[0];
+        orthogonalVectorP1[1] = plane_one[1];
+        orthogonalVectorP1[THREE_DIMENSION - 1] = plane_one[THREE_DIMENSION - 1];
+        orthogonalVectorP2[0] = plane_two[0];
+        orthogonalVectorP2[1] = plane_two[1];
+        orthogonalVectorP2[THREE_DIMENSION - 1] = plane_two[THREE_DIMENSION - 1];
+
+        // calculate the components of intersection
+        intersection[0] = (plane_two[THREE_DIMENSION] * plane_one[1] - plane_two[1] * plane_one[THREE_DIMENSION])
                 / (plane_one[1] * plane_two[0] - plane_one[0] * plane_two[1]);
-        double y = (plane_one[THREE_DIMENSION] - plane_one[0] * x) / plane_one[1];
-        double[] cross_product = null;
-        System.out.printf(ANSWER_INTERSECT_PLANE + NEWLINE, x, y, cross_product[0], cross_product[1],
-                cross_product[THREE_DIMENSION - 1]);
+        intersection[1] = (plane_one[THREE_DIMENSION] - plane_one[0] * intersection[0]) / plane_one[1];
+        intersection[THREE_DIMENSION - 1] = 0;
+        crossProduct = crossProductOfTwoVectors(orthogonalVectorP1, orthogonalVectorP2);
+        intersection[THREE_DIMENSION] = crossProduct[0];
+        intersection[THREE_DIMENSION + 1] = crossProduct[1];
+        intersection[intersection.length - 1] = crossProduct[THREE_DIMENSION - 1];
+
+        return intersection;
     }
-
-    // derivatives
-
 }

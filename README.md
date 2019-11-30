@@ -30,14 +30,14 @@ Mathematical concepts in UCSD MATH 20C solved using the Java programming languag
 
 13. Determine the area of parallelogram spanned by two vectors (only supports three dimensional space)
 
-14. Determine the volume of a parallelepiped spanned by three vectors
+14. Determine the volume of a parallelepiped spanned by three vectors (only supports three dimensional space)
 
-15. Determine if three vectors are coplanar
+15. Determine if three vectors are coplanar (only supports three dimensional space)
 
-16. Determine the equation of a plane given three points
+16. Determine the equation of a plane given three points (only supports three dimensional space)
 
-17. Determine the equation of a plane given normal vector and a point
+17. Determine the equation of a plane given normal vector and a point (only supports three dimensional space)
 
-18. Determine the intersection of a line and a plane
+18. Determine the intersection of a line and a plane (only supports three dimensional space)
 
-19. Determine the intersection of two planes
+19. Determine the intersection of two planes (only supports three dimensional space)
