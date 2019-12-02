@@ -13,13 +13,16 @@ import java.util.Scanner;
  */
 public class MATH20C_Chapter_One {
 
+        // topic numbers
         private static final int TOPIC_ONE = 1, TOPIC_TWO = 2, TOPIC_THREE = 3, TOPIC_FOUR = 4, TOPIC_FIVE = 5,
                         TOPIC_SIX = 6, TOPIC_SEVEN = 7, TOPIC_EIGHT = 8, TOPIC_NINE = 9, TOPIC_TEN = 10,
                         TOPIC_ELEVEN = 11, TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14,
                         TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16;
 
+        // prompt for users
         private static final String PROMPT = "What do you want to solve? Choose from "
                         + "the following options and type the corresponding number:";
+        // questions that can be answered
         private static final String QUESTIONS = "1: Line from two vectors\n2: Intersection of two lines\n"
                         + "3: Magnitude of a vector\n4: Dot product of two vectors\n5: Unit vector\n6: Angle between two vectors\n"
                         + "7: Orthogonal projection of two vectors\n8: Determinant of 3x3 matrix\n9: Cross product of two vectors\n"
@@ -27,6 +30,7 @@ public class MATH20C_Chapter_One {
                         + "12: Determine if three vectors are coplanar\n13: Equation of a plane given three points\n"
                         + "14: Equation of a plane given normal vector and point\n15: Intersection of line and plane\n"
                         + "16: Intersection of two planes\nType 0 to end the program";
+        // question prompts for the questions above
         private static final String QUESTION_PROMPT_LINE = "Given the form l(t) = (a,b,c) + t(x,y,z)\n"
                         + "Enter the line like this: a,b,c,x,y,z",
                         QUESTION_PROMPT_MATRIX = "Enter the 3d matrix in this order:\n"
@@ -35,7 +39,8 @@ public class MATH20C_Chapter_One {
                                         + "Enter the plane like this: A,B,C,D",
                         QUESTION_PROMPT_POINT = "Enter the point in the form x_1,x_2,...x_n",
                         QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...x_n";
-        private static final String RESULT_VECTOR = "The result is: ";
+        // the result of the calculations
+        private static final String RESULT = "The result is: ";
 
         /**
          * The main method asks the user for the question they would like to answer.
@@ -77,7 +82,7 @@ public class MATH20C_Chapter_One {
                                 result_double_arr = calculations.vectorAddition(
                                                 calculations.convertStringToArr(inputOne),
                                                 calculations.convertStringToArr(inputTwo));
-                                System.out.println(RESULT_VECTOR + calculations.convertArrToString(result_double_arr));
+                                System.out.println(RESULT + calculations.convertArrToString(result_double_arr));
                                 break;
                         case TOPIC_TWO:
                                 break;
