@@ -15,6 +15,10 @@ public class MATH20C_Calculations {
     private static final int TWO_DIMENSION = 2;
     private static final int THREE_DIMENSION = 3;
 
+    private static final char COMMA = ',';
+    private static final char LEFT_PARENTHESIS = '(';
+    private static final char RIGHT_PARENTHESIS = ')';
+
     private static final String LINES_NOT_IN_R3 = "The line/lines are not in R3";
     private static final String NOT_SQUARE_MATRIX = "The matrix is not a square matrix";
     private static final String PLANES_NOT_IN_R3 = "The plane/planes are not in R3";
@@ -22,6 +26,53 @@ public class MATH20C_Calculations {
     private static final String POINTS_NOT_IN_SAME_DIMENSION = "The points are not in the same dimension";
     private static final String VECTORS_NOT_IN_R3 = "The vector/vectors are not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "The vectors are not in the same dimension";
+
+    /**
+     * This method converts a string of numbers into a double array.
+     * 
+     * @param string The string to be converted into a double array
+     * @return The string in terms of a double array
+     */
+    public double[] convertStringToArr(String string) {
+        // resulting double array
+        double[] result;
+        // String array of each individual value
+        String[] stringArr;
+
+        stringArr = string.split("" + COMMA);
+        result = new double[stringArr.length];
+
+        // convert string array to double array
+        for (int index = 0; index < stringArr.length; index++) {
+            result[index] = Double.parseDouble(stringArr[index]);
+        }
+
+        return result;
+    }
+
+    /**
+     * This method converts a double array to a string of numbers.
+     * 
+     * @param doubleArr The double array to be converted into a string
+     * @return The double array in terms of a string
+     */
+    public String convertArrToString(double[] doubleArr) {
+        // resulting String
+        String result = "" + LEFT_PARENTHESIS;
+
+        // convert double array to string
+        for (int index = 0; index < doubleArr.length; index++) {
+            // if the index is not 0, add a comma before
+            if (index != 0) {
+                result += COMMA;
+            }
+            result += doubleArr[index];
+        }
+
+        result += RIGHT_PARENTHESIS;
+
+        return result;
+    }
 
     /**
      * This method adds two vectors and returns the result
