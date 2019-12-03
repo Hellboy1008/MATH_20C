@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: December 1, 2019
+ * Date Edited: December 2, 2019
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -79,9 +79,14 @@ public class MATH20C_Chapter_One {
                                 System.out.println(QUESTION_PROMPT_VECTOR);
                                 inputTwo = scan.next();
                                 System.out.println();
-                                result_double_arr = calculations.vectorAddition(
-                                                calculations.convertStringToArr(inputOne),
-                                                calculations.convertStringToArr(inputTwo));
+                                // catch exceptions
+                                try {
+                                        result_double_arr = calculations.vectorAddition(
+                                                        calculations.convertStringToArr(inputOne),
+                                                        calculations.convertStringToArr(inputTwo));
+                                } catch (Exception e) {
+                                        System.out.println(e);
+                                }
                                 System.out.println(RESULT + calculations.convertArrToString(result_double_arr));
                                 break;
                         case TOPIC_TWO:
