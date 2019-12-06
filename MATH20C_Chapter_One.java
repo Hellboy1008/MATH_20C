@@ -42,6 +42,12 @@ public class MATH20C_Chapter_One {
         // the result of the calculations
         private static final String RESULT = "The result is: ";
 
+        // scanner used to get user input
+        private static Scanner scan = new Scanner(System.in);
+
+        // class that will perform the calculations
+        private static MATH20C_Calculations calculations = new MATH20C_Calculations();
+
         /**
          * The main method asks the user for the question they would like to answer.
          * 
@@ -50,20 +56,8 @@ public class MATH20C_Chapter_One {
         public static void main(String[] args) {
                 // if the user wants a question answered
                 boolean answerQuestion = true;
-                // result of calculation
-                boolean result_boolean;
                 // the topic they would like to ask a question for
                 int topic;
-                // results of calculation
-                double result_double;
-                // results of calculation
-                double[] result_double_arr;
-                // inputs from user
-                String inputOne, inputTwo, inputThree;
-                // scanner used to get user input
-                Scanner scan = new Scanner(System.in);
-                // class that will perform the calculations
-                MATH20C_Calculations calculations = new MATH20C_Calculations();
 
                 // while the user wants to answer a question
                 while (answerQuestion == true) {
@@ -74,20 +68,7 @@ public class MATH20C_Chapter_One {
                         // run methods based on topics
                         switch (topic) {
                         case TOPIC_ONE:
-                                System.out.println(QUESTION_PROMPT_VECTOR);
-                                inputOne = scan.next();
-                                System.out.println(QUESTION_PROMPT_VECTOR);
-                                inputTwo = scan.next();
-                                System.out.println();
-                                // catch exceptions
-                                try {
-                                        result_double_arr = calculations.vectorAddition(
-                                                        calculations.convertStringToArr(inputOne),
-                                                        calculations.convertStringToArr(inputTwo));
-                                } catch (Exception e) {
-                                        System.out.println(e);
-                                }
-                                System.out.println(RESULT + calculations.convertArrToString(result_double_arr));
+                                topicOne();
                                 break;
                         case TOPIC_TWO:
                                 break;
@@ -127,5 +108,32 @@ public class MATH20C_Chapter_One {
                 }
 
                 scan.close();
+        }
+
+        /**
+         * This method runs the calculations for the first topic.
+         */
+        public static void topicOne() {
+                // resulting vector
+                double[] result_arr;
+                // first input vector
+                String inputOne;
+                // second input vector
+                String inputTwo;
+
+                System.out.println(QUESTION_PROMPT_VECTOR);
+                inputOne = scan.next();
+                System.out.println(QUESTION_PROMPT_VECTOR);
+                inputTwo = scan.next();
+                System.out.println();
+                // catch exceptions
+                try {
+                        result_arr = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
+                                        calculations.convertStringToArr(inputTwo));
+                } catch (Exception e) {
+                        System.out.println(e);
+                        return;
+                }
+                System.out.println(RESULT + calculations.convertArrToString(result_arr));
         }
 }
