@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: December 7, 2019
+ * Date Edited: January 2, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
