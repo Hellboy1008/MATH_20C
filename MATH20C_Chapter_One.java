@@ -131,6 +131,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_VECTOR);
         inputTwo = scan.next();
         System.out.println();
+        
         // catch exceptions
         try {
             result_arr = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
@@ -158,6 +159,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_VECTOR);
         inputTwo = scan.next();
         System.out.println();
+
         // catch exceptions
         try {
             result_arr = calculations.vectorSubtraction(calculations.convertStringToArr(inputOne),
@@ -185,6 +187,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_SCALAR);
         inputTwo = scan.next();
         System.out.println();
+
         // catch exceptions
         try {
             result_arr = calculations.vectorScaling(calculations.convertStringToArr(inputOne),
@@ -212,6 +215,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_VECTOR);
         inputTwo = scan.next();
         System.out.println();
+
         // catch exceptions
         try {
             result_arr = calculations.lineFromTwoVectors(calculations.convertStringToArr(inputOne),
