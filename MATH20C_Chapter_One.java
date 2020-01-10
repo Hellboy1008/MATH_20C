@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: January 2, 2020
+ * Date Edited: January 9, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -82,6 +82,7 @@ public class MATH20C_Chapter_One {
                 topicFour();
                 break;
             case TOPIC_FIVE:
+                topicFive();
                 break;
             case TOPIC_SIX:
                 break;
@@ -131,7 +132,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_VECTOR);
         inputTwo = scan.next();
         System.out.println();
-        
+
         // catch exceptions
         try {
             result_arr = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
@@ -227,5 +228,33 @@ public class MATH20C_Chapter_One {
         System.out.println(RESULT + String.format(RESULT_LINE, result_arr[0], result_arr[1],
                 result_arr[THREE_DIMENSION - 1], result_arr[THREE_DIMENSION], result_arr[THREE_DIMENSION + 1],
                 result_arr[result_arr.length - 1]));
+    }
+
+    /**
+     * This method runs the calculations for the fifth topic.
+     */
+    public static void topicFive() {
+        // resulting point
+        double[] result_arr;
+        // first input line
+        String inputOne;
+        // second input line
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_LINE);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_LINE);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_arr = calculations.intersectionOfTwoLines(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+        System.out.println(RESULT + calculations.convertArrToString(result_arr));
     }
 }
