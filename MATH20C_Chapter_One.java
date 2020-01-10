@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: January 9, 2020
+ * Date Edited: January 10, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -24,7 +24,7 @@ public class MATH20C_Chapter_One {
     private static final String PROMPT = "What do you want to solve? Choose from "
             + "the following options and type the corresponding number:";
     // questions that can be answered
-    private static final String QUESTIONS = "1: Addition of two vector\n2: Subtraction of two vectors\n3: Scaling a vector\n4: Line from two vectors\n5: Intersection of two lines\n"
+    private static final String QUESTIONS = "1: Addition of two vectors\n2: Subtraction of two vectors\n3: Scaling a vector\n4: Line from two vectors\n5: Intersection of two lines\n"
             + "6: Magnitude of a vector\n7: Dot product of two vectors\n8: Unit vector\n9: Angle between two vectors\n"
             + "10: Orthogonal projection of two vectors\n11: Determinant of 3x3 matrix\n12: Cross product of two vectors\n"
             + "13: Area of parallelogram spanned by two vectors\n14: Volume of parallelepiped spanned by three vectors\n"
@@ -36,9 +36,9 @@ public class MATH20C_Chapter_One {
             + "Enter the line like this: a,b,c,x,y,z",
             QUESTION_PROMPT_MATRIX = "Enter the 3d matrix in this order:\n" + "(a1,a2,a3,b1,b2,b3,c1,c2,c3)",
             QUESTION_PROMPT_PLANE = "Given the form P = Ax + By + Cz + D = 0\n" + "Enter the plane like this: A,B,C,D",
-            QUESTION_PROMPT_POINT = "Enter the point in the form x_1,x_2,...x_n",
+            QUESTION_PROMPT_POINT = "Enter the point in the form x_1,x_2,...,x_n",
             QUESTION_PROMPT_SCALAR = "Enter the scalar value",
-            QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...x_n";
+            QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...,x_n";
     // the result of the calculations
     private static final String RESULT = "The result is: ";
     // resulting line from calculations
