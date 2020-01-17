@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: January 10, 2020
- * Date Edited: January 10, 2020
+ * Date Edited: January 16, 2020
  * Purpose: Test calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -27,11 +27,21 @@ public class MATH20C_Chapter_One_Test {
     @Test
     @DisplayName("Testing Chapter One Topic One")
     public void topicOneTest() {
+        // list of string tests
+        String[] tests = {""};
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // setup output stream
+        out = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(out));
+
+        //
         String inputOne = "1,2,3\n4,5,6";
         InputStream in = new ByteArrayInputStream(inputOne.getBytes());
         System.setIn(in);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
         MATH20C_Chapter_One.topicOne();
         assertEquals(
                 "Enter the vector in the form x_1,x_2,...,x_n\r\nEnter the vector in the form x_1,x_2,...,x_n\r\n\r\nThe result is: (5.0,7.0,9.0)\r\n",

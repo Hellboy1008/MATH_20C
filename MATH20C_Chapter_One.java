@@ -137,6 +137,9 @@ public class MATH20C_Chapter_One {
         try {
             result_arr = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println(e);
             return;

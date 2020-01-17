@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: December 1, 2019
+ * Date Edited: January 16, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -26,12 +26,14 @@ public class MATH20C_Calculations {
     private static final String POINTS_NOT_IN_SAME_DIMENSION = "Incorrect input -> The points are not in the same dimension";
     private static final String VECTORS_NOT_IN_R3 = "Incorrect input -> The vector/vectors are not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "Incorrect input -> The vectors are not in the same dimension";
+    private static final String USER_INPUT_INVALID = "Incorrect input -> Only numbers, dots, and commas are allowed as valid input";
 
     /**
      * This method converts a string of numbers into a double array.
      * 
      * @param string The string to be converted into a double array
      * @return The string in terms of a double array
+     * @throws NumberFormatException if the string is not in the format required
      */
     public double[] convertStringToArr(String string) {
         // resulting double array
@@ -44,7 +46,11 @@ public class MATH20C_Calculations {
 
         // convert string array to double array
         for (int index = 0; index < stringArr.length; index++) {
-            result[index] = Double.parseDouble(stringArr[index]);
+            try {
+                result[index] = Double.parseDouble(stringArr[index]);
+            } catch (NumberFormatException e) {
+                throw new NumberFormatException(USER_INPUT_INVALID);
+            }
         }
 
         return result;
