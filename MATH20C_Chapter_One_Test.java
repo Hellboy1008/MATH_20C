@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: January 10, 2020
- * Date Edited: January 16, 2020
+ * Date Edited: January 17, 2020
  * Purpose: Test calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -21,30 +21,61 @@ import org.junit.jupiter.api.Test;
  */
 public class MATH20C_Chapter_One_Test {
 
+    // denotes a new line with both new line and enter character
+    private static final String NEWLINE = "\r\n";
+    // standard input stream
+    private static final InputStream STANDARD_IN = System.in;
+    // standard output stream
+    private static final PrintStream STANDARD_OUT = System.out;
+
     /**
      * This method tests topic one for the chapter
+     * 
+     * @param None
+     * @return None
      */
     @Test
     @DisplayName("Testing Chapter One Topic One")
     public void topicOneTest() {
         // list of string tests
-        String[] tests = {""};
+        String[] tests = { "1,2,3\nabc", "1,2,3\n4,5,6,7", "32\n64", "32,43\n1,2", "1,2,3\n4,5,6" };
+        // list of expected results
+        String[] results = {
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "Incorrect input -> The vectors are not in the same dimension" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE + "The result is: (96.0)"
+                        + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "The result is: (33.0,45.0)" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "The result is: (5.0,7.0,9.0)" + NEWLINE };
         // input stream for the test
         InputStream in;
         // output stream for the test
         ByteArrayOutputStream out;
 
-        // setup output stream
-        out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
 
-        //
-        String inputOne = "1,2,3\n4,5,6";
-        InputStream in = new ByteArrayInputStream(inputOne.getBytes());
-        System.setIn(in);
-        MATH20C_Chapter_One.topicOne();
-        assertEquals(
-                "Enter the vector in the form x_1,x_2,...,x_n\r\nEnter the vector in the form x_1,x_2,...,x_n\r\n\r\nThe result is: (5.0,7.0,9.0)\r\n",
-                out.toString());
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicOne();
+            assertEquals(results[index], out.toString());
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
     }
 }

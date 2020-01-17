@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: January 10, 2020
+ * Date Edited: January 17, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -54,6 +54,7 @@ public class MATH20C_Chapter_One {
      * The main method asks the user for the question they would like to answer.
      * 
      * @param args The number of arguments passed by the user
+     * @return None
      */
     public static void main(String[] args) {
         // if the user wants a question answered
@@ -117,6 +118,16 @@ public class MATH20C_Chapter_One {
     }
 
     /**
+     * This method resets the scanner to point to a new input stream for the tester.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void resetScanner() {
+        scan = new Scanner(System.in);
+    }
+
+    /**
      * This method runs the calculations for the first topic.
      */
     public static void topicOne() {
@@ -149,6 +160,9 @@ public class MATH20C_Chapter_One {
 
     /**
      * This method runs the calculations for the second topic.
+     * 
+     * @param None
+     * @return None
      */
     public static void topicTwo() {
         // resulting vector
@@ -177,6 +191,9 @@ public class MATH20C_Chapter_One {
 
     /**
      * This method runs the calculations for the third topic.
+     * 
+     * @param None
+     * @return None
      */
     public static void topicThree() {
         // resulting vector
@@ -205,6 +222,9 @@ public class MATH20C_Chapter_One {
 
     /**
      * This method runs the calculations for the fourth topic.
+     * 
+     * @param None
+     * @return None
      */
     public static void topicFour() {
         // resulting vector
@@ -235,6 +255,9 @@ public class MATH20C_Chapter_One {
 
     /**
      * This method runs the calculations for the fifth topic.
+     * 
+     * @param None
+     * @return None
      */
     public static void topicFive() {
         // resulting point
