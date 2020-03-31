@@ -2,6 +2,8 @@
 
 Mathematical concepts in UCSD MATH 20C solved using the Java programming language.
 
+[Tests](https://docs.google.com/document/d/1peaTH3GKV6FmaQ-HdkAiHr02Tpsxusfu4oGaC5pZXBs/edit?usp=sharing)
+
 ## Functions for Chapter 1
 
 1. Vector Addition (supports real coordinate space of n dimensions)
