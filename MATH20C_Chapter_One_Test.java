@@ -38,7 +38,7 @@ public class MATH20C_Chapter_One_Test {
     @DisplayName("Testing Chapter One Topic One")
     public void topicOneTest() {
         // list of string tests
-        String[] tests = { "1,2,3\nabc", "1,2,3\n4,5,6,7", "32\n64", "32,43\n1,2", "1,2,3\n4,5,6" };
+        String[] tests = { "1,2,3\nabc", "1,2,3\n4,5,6,7", "32\n64", "32,43\n1,2", "1,2,-3\n4,5,6" };
         // list of expected results
         String[] results = {
                 "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
@@ -55,7 +55,7 @@ public class MATH20C_Chapter_One_Test {
                         + "The result is: (33.0,45.0)" + NEWLINE,
                 "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
                         + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
-                        + "The result is: (5.0,7.0,9.0)" + NEWLINE };
+                        + "The result is: (5.0,7.0,3.0)" + NEWLINE };
         // input stream for the test
         InputStream in;
         // output stream for the test
@@ -72,6 +72,57 @@ public class MATH20C_Chapter_One_Test {
             // run topic and see if results differ
             MATH20C_Chapter_One.resetScanner();
             MATH20C_Chapter_One.topicOne();
+            assertEquals(results[index], out.toString());
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic two for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Two")
+    public void topicTwoTest() {
+        // list of string tests
+        String[] tests = { "1,2,3\nabc", "1,2,3\n4,5,6,7", "32\n64", "32,43\n1,2", "1,2,-3\n4,5,6" };
+        // list of expected results
+        String[] results = {
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "Incorrect input -> The vectors are not in the same dimension" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE + "The result is: (-32.0)"
+                        + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "The result is: (31.0,41.0)" + NEWLINE,
+                "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + NEWLINE + NEWLINE
+                        + "The result is: (-3.0,-3.0,-9.0)" + NEWLINE };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicTwo();
             assertEquals(results[index], out.toString());
         }
 

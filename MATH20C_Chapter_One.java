@@ -70,45 +70,45 @@ public class MATH20C_Chapter_One {
 
             // run methods based on topics
             switch (topic) {
-            case TOPIC_ONE:
-                topicOne();
-                break;
-            case TOPIC_TWO:
-                topicTwo();
-                break;
-            case TOPIC_THREE:
-                topicThree();
-                break;
-            case TOPIC_FOUR:
-                topicFour();
-                break;
-            case TOPIC_FIVE:
-                topicFive();
-                break;
-            case TOPIC_SIX:
-                break;
-            case TOPIC_SEVEN:
-                break;
-            case TOPIC_EIGHT:
-                break;
-            case TOPIC_NINE:
-                break;
-            case TOPIC_TEN:
-                break;
-            case TOPIC_ELEVEN:
-                break;
-            case TOPIC_TWELVE:
-                break;
-            case TOPIC_THIRTEEN:
-                break;
-            case TOPIC_FOURTEEN:
-                break;
-            case TOPIC_FIFTEEN:
-                break;
-            case TOPIC_SIXTEEN:
-                break;
-            default:
-                answerQuestion = false;
+                case TOPIC_ONE:
+                    topicOne();
+                    break;
+                case TOPIC_TWO:
+                    topicTwo();
+                    break;
+                case TOPIC_THREE:
+                    topicThree();
+                    break;
+                case TOPIC_FOUR:
+                    topicFour();
+                    break;
+                case TOPIC_FIVE:
+                    topicFive();
+                    break;
+                case TOPIC_SIX:
+                    break;
+                case TOPIC_SEVEN:
+                    break;
+                case TOPIC_EIGHT:
+                    break;
+                case TOPIC_NINE:
+                    break;
+                case TOPIC_TEN:
+                    break;
+                case TOPIC_ELEVEN:
+                    break;
+                case TOPIC_TWELVE:
+                    break;
+                case TOPIC_THIRTEEN:
+                    break;
+                case TOPIC_FOURTEEN:
+                    break;
+                case TOPIC_FIFTEEN:
+                    break;
+                case TOPIC_SIXTEEN:
+                    break;
+                default:
+                    answerQuestion = false;
             }
 
             System.out.println();
@@ -182,6 +182,9 @@ public class MATH20C_Chapter_One {
         try {
             result_arr = calculations.vectorSubtraction(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println(e);
             return;
@@ -213,6 +216,9 @@ public class MATH20C_Chapter_One {
         try {
             result_arr = calculations.vectorScaling(calculations.convertStringToArr(inputOne),
                     Double.parseDouble(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println(e);
             return;
