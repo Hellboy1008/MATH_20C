@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: January 17, 2020
+ * Date Edited: April 4, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -21,6 +21,7 @@ public class MATH20C_Chapter_One {
             TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14, TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16;
 
     // prompt for users
+    private static final String ERROR_NOT_DOUBLE = "Incorrect input -> The scalar value has to be a real number";
     private static final String PROMPT = "What do you want to solve? Choose from "
             + "the following options and type the corresponding number:";
     // questions that can be answered
@@ -212,7 +213,15 @@ public class MATH20C_Chapter_One {
         inputTwo = scan.next();
         System.out.println();
 
-        // catch exceptions
+        // catch exception for scalar value
+        try {
+            double x = Double.parseDouble(inputTwo);
+        } catch (Exception e) {
+            System.out.println(ERROR_NOT_DOUBLE);
+            return;
+        }
+
+        // catch exceptions for vector
         try {
             result_arr = calculations.vectorScaling(calculations.convertStringToArr(inputOne),
                     Double.parseDouble(inputTwo));
