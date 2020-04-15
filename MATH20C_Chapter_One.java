@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: April 4, 2020
+ * Date Edited: April 14, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -20,8 +20,9 @@ public class MATH20C_Chapter_One {
             TOPIC_SIX = 6, TOPIC_SEVEN = 7, TOPIC_EIGHT = 8, TOPIC_NINE = 9, TOPIC_TEN = 10, TOPIC_ELEVEN = 11,
             TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14, TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16;
 
-    // prompt for users
+    // error messages for users
     private static final String ERROR_NOT_DOUBLE = "Incorrect input -> The scalar value has to be a real number";
+    // prompt for users
     private static final String PROMPT = "What do you want to solve? Choose from "
             + "the following options and type the corresponding number:";
     // questions that can be answered
@@ -40,10 +41,10 @@ public class MATH20C_Chapter_One {
             QUESTION_PROMPT_POINT = "Enter the point in the form x_1,x_2,...,x_n",
             QUESTION_PROMPT_SCALAR = "Enter the scalar value",
             QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...,x_n";
-    // the result of the calculations
+    // results of the calculations
     private static final String RESULT = "The result is: ";
-    // resulting line from calculations
     private static final String RESULT_LINE = "(%.2f,%.2f,%.2f) + t(%.2f,%.2f,%.2f)";
+    private static final String RESULT_NO_INTERSECTION = "There is no intersection.";
 
     // scanner used to get user input
     private static Scanner scan = new Scanner(System.in);
@@ -259,6 +260,9 @@ public class MATH20C_Chapter_One {
         try {
             result_arr = calculations.lineFromTwoVectors(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println(e);
             return;
@@ -292,10 +296,20 @@ public class MATH20C_Chapter_One {
         try {
             result_arr = calculations.intersectionOfTwoLines(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
         } catch (Exception e) {
             System.out.println(e);
             return;
         }
+
+        // no intersection case
+        if (result_arr == null) {
+            System.out.println(RESULT_NO_INTERSECTION);
+            return;
+        }
+
         System.out.println(RESULT + calculations.convertArrToString(result_arr));
     }
 }

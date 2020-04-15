@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: January 16, 2020
+ * Date Edited: April 14, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -208,7 +208,11 @@ public class MATH20C_Calculations {
         d = line_one[THREE_DIMENSION + 1];
         e = -1 * line_two[THREE_DIMENSION + 1];
         f = line_two[1] - line_one[1];
-        x = (f * b - e * c) / (b * d - a * e);
+        if (f * b - e * c == 0 && b * d - a * e == 0) {
+            x = 0;
+        } else {
+            x = (f * b - e * c) / (b * d - a * e);
+        }
         y = (c - a * x) / b;
 
         // check to see if intersection exists
