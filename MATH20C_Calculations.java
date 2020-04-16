@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: April 14, 2020
+ * Date Edited: April 15, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -19,6 +19,9 @@ public class MATH20C_Calculations {
     private static final char LEFT_PARENTHESIS = '(';
     private static final char RIGHT_PARENTHESIS = ')';
 
+    // decimal format for 4 deciamal places
+    private static final String DECIMAL_FOUR = "%.4f";
+    // error messages for incorrect input
     private static final String LINES_NOT_IN_R3 = "Incorrect input -> The line/lines are not in R3";
     private static final String NOT_SQUARE_MATRIX = "Incorrect input -> The matrix is not a square matrix";
     private static final String PLANES_NOT_IN_R3 = "Incorrect input -> The plane/planes are not in R3";
@@ -72,7 +75,7 @@ public class MATH20C_Calculations {
             if (index != 0) {
                 result += COMMA;
             }
-            result += doubleArr[index];
+            result += String.format(DECIMAL_FOUR, doubleArr[index]);
         }
 
         result += RIGHT_PARENTHESIS;

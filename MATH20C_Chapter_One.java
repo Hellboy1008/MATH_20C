@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: April 14, 2020
+ * Date Edited: April 15, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -22,6 +22,8 @@ public class MATH20C_Chapter_One {
 
     // error messages for users
     private static final String ERROR_NOT_DOUBLE = "Incorrect input -> The scalar value has to be a real number";
+    // decimal format for 4 deciamal places
+    private static final String DECIMAL_FOUR = "%.4f";
     // prompt for users
     private static final String PROMPT = "What do you want to solve? Choose from "
             + "the following options and type the corresponding number:";
@@ -43,7 +45,7 @@ public class MATH20C_Chapter_One {
             QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...,x_n";
     // results of the calculations
     private static final String RESULT = "The result is: ";
-    private static final String RESULT_LINE = "(%.2f,%.2f,%.2f) + t(%.2f,%.2f,%.2f)";
+    private static final String RESULT_LINE = "(%.4f,%.4f,%.4f) + t(%.4f,%.4f,%.4f)";
     private static final String RESULT_NO_INTERSECTION = "There is no intersection.";
 
     // scanner used to get user input
@@ -88,14 +90,19 @@ public class MATH20C_Chapter_One {
                     topicFive();
                     break;
                 case TOPIC_SIX:
+                    topicSix();
                     break;
                 case TOPIC_SEVEN:
+                    topicSeven();
                     break;
                 case TOPIC_EIGHT:
+                    topicEight();
                     break;
                 case TOPIC_NINE:
+                    topicNine();
                     break;
                 case TOPIC_TEN:
+                    topicTen();
                     break;
                 case TOPIC_ELEVEN:
                     break;
@@ -134,7 +141,7 @@ public class MATH20C_Chapter_One {
      */
     public static void topicOne() {
         // resulting vector
-        double[] result_arr;
+        double[] result_vector;
         // first input vector
         String inputOne;
         // second input vector
@@ -148,7 +155,7 @@ public class MATH20C_Chapter_One {
 
         // catch exceptions
         try {
-            result_arr = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
+            result_vector = calculations.vectorAddition(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -157,7 +164,7 @@ public class MATH20C_Chapter_One {
             System.out.println(e);
             return;
         }
-        System.out.println(RESULT + calculations.convertArrToString(result_arr));
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
     }
 
     /**
@@ -168,7 +175,7 @@ public class MATH20C_Chapter_One {
      */
     public static void topicTwo() {
         // resulting vector
-        double[] result_arr;
+        double[] result_vector;
         // first input vector
         String inputOne;
         // second input vector
@@ -182,7 +189,7 @@ public class MATH20C_Chapter_One {
 
         // catch exceptions
         try {
-            result_arr = calculations.vectorSubtraction(calculations.convertStringToArr(inputOne),
+            result_vector = calculations.vectorSubtraction(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -191,7 +198,7 @@ public class MATH20C_Chapter_One {
             System.out.println(e);
             return;
         }
-        System.out.println(RESULT + calculations.convertArrToString(result_arr));
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
     }
 
     /**
@@ -202,7 +209,7 @@ public class MATH20C_Chapter_One {
      */
     public static void topicThree() {
         // resulting vector
-        double[] result_arr;
+        double[] result_vector;
         // first input vector
         String inputOne;
         // scalar value
@@ -224,7 +231,7 @@ public class MATH20C_Chapter_One {
 
         // catch exceptions for vector
         try {
-            result_arr = calculations.vectorScaling(calculations.convertStringToArr(inputOne),
+            result_vector = calculations.vectorScaling(calculations.convertStringToArr(inputOne),
                     Double.parseDouble(inputTwo));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -233,7 +240,7 @@ public class MATH20C_Chapter_One {
             System.out.println(e);
             return;
         }
-        System.out.println(RESULT + calculations.convertArrToString(result_arr));
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
     }
 
     /**
@@ -243,8 +250,8 @@ public class MATH20C_Chapter_One {
      * @return None
      */
     public static void topicFour() {
-        // resulting vector
-        double[] result_arr;
+        // resulting line
+        double[] result_line;
         // first input vector
         String inputOne;
         // second input vector
@@ -258,7 +265,7 @@ public class MATH20C_Chapter_One {
 
         // catch exceptions
         try {
-            result_arr = calculations.lineFromTwoVectors(calculations.convertStringToArr(inputOne),
+            result_line = calculations.lineFromTwoVectors(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -267,9 +274,9 @@ public class MATH20C_Chapter_One {
             System.out.println(e);
             return;
         }
-        System.out.println(RESULT + String.format(RESULT_LINE, result_arr[0], result_arr[1],
-                result_arr[THREE_DIMENSION - 1], result_arr[THREE_DIMENSION], result_arr[THREE_DIMENSION + 1],
-                result_arr[result_arr.length - 1]));
+        System.out.println(RESULT + String.format(RESULT_LINE, result_line[0], result_line[1],
+                result_line[THREE_DIMENSION - 1], result_line[THREE_DIMENSION], result_line[THREE_DIMENSION + 1],
+                result_line[result_line.length - 1]));
     }
 
     /**
@@ -280,7 +287,7 @@ public class MATH20C_Chapter_One {
      */
     public static void topicFive() {
         // resulting point
-        double[] result_arr;
+        double[] result_point;
         // first input line
         String inputOne;
         // second input line
@@ -294,7 +301,7 @@ public class MATH20C_Chapter_One {
 
         // catch exceptions
         try {
-            result_arr = calculations.intersectionOfTwoLines(calculations.convertStringToArr(inputOne),
+            result_point = calculations.intersectionOfTwoLines(calculations.convertStringToArr(inputOne),
                     calculations.convertStringToArr(inputTwo));
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -305,11 +312,176 @@ public class MATH20C_Chapter_One {
         }
 
         // no intersection case
-        if (result_arr == null) {
+        if (result_point == null) {
             System.out.println(RESULT_NO_INTERSECTION);
             return;
         }
 
-        System.out.println(RESULT + calculations.convertArrToString(result_arr));
+        System.out.println(RESULT + calculations.convertArrToString(result_point));
+    }
+
+    /**
+     * This method runs the calculations for the sixth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicSix() {
+        // magnitude of vector
+        double magnitude;
+        // first input vector
+        String inputOne;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            magnitude = calculations.magnitudeOfVector(calculations.convertStringToArr(inputOne));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, magnitude));
+    }
+
+    /**
+     * This method runs the calculations for the seventh topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicSeven() {
+        // dot product of vector
+        double dot_product;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            dot_product = calculations.dotProductTwoVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, dot_product));
+    }
+
+    /**
+     * This method runs the calculations for the eighth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicEight() {
+        // unit vector
+        double[] result_vector;
+        // first input vector
+        String inputOne;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_vector = calculations.unitVector(calculations.convertStringToArr(inputOne));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
+    }
+
+    /**
+     * This method runs the calculations for the ninth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicNine() {
+        // angle between the two vectors
+        double angle;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            angle = calculations.angleBetweenTwoVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, angle));
+    }
+
+    /**
+     * This method runs the calculations for the tenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicTen() {
+        // resulting vector
+        double[] result_vector;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_vector = calculations.orthogonalProjectionOfTwoVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
     }
 }
