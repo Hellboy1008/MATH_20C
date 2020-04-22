@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: April 15, 2020
+ * Date Edited: April 21, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -21,8 +21,9 @@ public class MATH20C_Chapter_One {
             TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14, TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16;
 
     // error messages for users
+    private static final String ERROR_INVALID_MATRIX_SIZE = "Incorrect input -> The size of the matrix has to be an integer bigger than 1";
     private static final String ERROR_NOT_DOUBLE = "Incorrect input -> The scalar value has to be a real number";
-    // decimal format for 4 deciamal places
+    // decimal format for 4 decimal places
     private static final String DECIMAL_FOUR = "%.4f";
     // prompt for users
     private static final String PROMPT = "What do you want to solve? Choose from "
@@ -30,7 +31,7 @@ public class MATH20C_Chapter_One {
     // questions that can be answered
     private static final String QUESTIONS = "1: Addition of two vectors\n2: Subtraction of two vectors\n3: Scaling a vector\n4: Line from two vectors\n5: Intersection of two lines\n"
             + "6: Magnitude of a vector\n7: Dot product of two vectors\n8: Unit vector\n9: Angle between two vectors\n"
-            + "10: Orthogonal projection of two vectors\n11: Determinant of 3x3 matrix\n12: Cross product of two vectors\n"
+            + "10: Orthogonal projection of two vectors\n11: Determinant of a square matrix\n12: Cross product of two vectors\n"
             + "13: Area of parallelogram spanned by two vectors\n14: Volume of parallelepiped spanned by three vectors\n"
             + "15: Determine if three vectors are coplanar\n16: Equation of a plane given three points\n"
             + "17: Equation of a plane given normal vector and point\n18: Intersection of line and plane\n"
@@ -38,10 +39,11 @@ public class MATH20C_Chapter_One {
     // question prompts for the questions above
     private static final String QUESTION_PROMPT_LINE = "Given the form l(t) = (a,b,c) + t(x,y,z)\n"
             + "Enter the line like this: a,b,c,x,y,z",
-            QUESTION_PROMPT_MATRIX = "Enter the 3d matrix in this order:\n" + "(a1,a2,a3,b1,b2,b3,c1,c2,c3)",
+            QUESTION_PROMPT_MATRIX = "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n",
             QUESTION_PROMPT_PLANE = "Given the form P = Ax + By + Cz + D = 0\n" + "Enter the plane like this: A,B,C,D",
             QUESTION_PROMPT_POINT = "Enter the point in the form x_1,x_2,...,x_n",
             QUESTION_PROMPT_SCALAR = "Enter the scalar value",
+            QUESTION_PROMPT_SIZE_MATRIX = "Enter the size of the matrix",
             QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...,x_n";
     // results of the calculations
     private static final String RESULT = "The result is: ";
@@ -105,10 +107,13 @@ public class MATH20C_Chapter_One {
                     topicTen();
                     break;
                 case TOPIC_ELEVEN:
+                    topicEleven();
                     break;
                 case TOPIC_TWELVE:
+                    topicTwelve();
                     break;
                 case TOPIC_THIRTEEN:
+                    topicThirteen();
                     break;
                 case TOPIC_FOURTEEN:
                     break;
@@ -224,6 +229,7 @@ public class MATH20C_Chapter_One {
         // catch exception for scalar value
         try {
             double x = Double.parseDouble(inputTwo);
+            x += x;
         } catch (Exception e) {
             System.out.println(ERROR_NOT_DOUBLE);
             return;
@@ -483,5 +489,173 @@ public class MATH20C_Chapter_One {
         }
 
         System.out.println(RESULT + calculations.convertArrToString(result_vector));
+    }
+
+    /**
+     * This method runs the calculations for the eleventh topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicEleven() {
+        // resulting determinant
+        double determinant;
+        // input matrix size
+        String inputOne;
+        // input matrix row
+        String inputTwo;
+        // input matrix
+        double[][] matrix;
+
+        System.out.println(QUESTION_PROMPT_SIZE_MATRIX);
+        inputOne = scan.next();
+
+        // check if the matrix size is valid
+        try {
+            int x = Integer.parseInt(inputOne);
+            if (x == 1) {
+                throw new IllegalArgumentException();
+            }
+        } catch (Exception e) {
+            System.out.println(ERROR_INVALID_MATRIX_SIZE);
+            return;
+        }
+
+        System.out.println(QUESTION_PROMPT_MATRIX);
+
+        // read individual rows
+        matrix = new double[Integer.parseInt(inputOne)][];
+        for (int i = 0; i < Integer.parseInt(inputOne); i++) {
+            inputTwo = scan.next();
+            try {
+                matrix[i] = calculations.convertStringToArr(inputTwo);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+                return;
+            }
+        }
+        System.out.println();
+
+        // catch exceptions
+        try {
+            determinant = calculations.determinantOfSquareMatrix(matrix);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, determinant));
+    }
+
+    /**
+     * This method runs the calculations for the twelfth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicTwelve() {
+        // resulting vector
+        double[] result_vector;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_vector = calculations.crossProductOfTwoVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + calculations.convertArrToString(result_vector));
+    }
+
+    /**
+     * This method runs the calculations for the thirteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicThirteen() {
+        // area of parallelogram
+        double area;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            area = calculations.areaOfParallelogramTwoVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, area));
+    }
+
+    /**
+     * This method runs the calculations for the fourteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicFourteen() {
+        // volume of parallelepiped
+        double volume;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+        // third input vector
+        String inputThree;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            volume = calculations.volumeOfParallelepipedThreeVectors(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo), calculations.convertStringToArr(inputThree));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(DECIMAL_FOUR, volume));
     }
 }

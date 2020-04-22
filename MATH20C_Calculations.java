@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: April 15, 2020
+ * Date Edited: April 21, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -19,7 +19,7 @@ public class MATH20C_Calculations {
     private static final char LEFT_PARENTHESIS = '(';
     private static final char RIGHT_PARENTHESIS = ')';
 
-    // decimal format for 4 deciamal places
+    // decimal format for 4 decimal places
     private static final String DECIMAL_FOUR = "%.4f";
     // error messages for incorrect input
     private static final String LINES_NOT_IN_R3 = "Incorrect input -> The line/lines are not in R3";
@@ -74,6 +74,10 @@ public class MATH20C_Calculations {
             // if the index is not 0, add a comma before
             if (index != 0) {
                 result += COMMA;
+            }
+            // if the value is zero, convert to positive zero in the case of negative zero
+            if (doubleArr[index] == 0) {
+                doubleArr[index] += 0.0;
             }
             result += String.format(DECIMAL_FOUR, doubleArr[index]);
         }

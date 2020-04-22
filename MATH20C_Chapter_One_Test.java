@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: January 10, 2020
- * Date Edited: April 15, 2020
+ * Date Edited: April 21, 2020
  * Purpose: Test calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -22,17 +22,26 @@ import org.junit.jupiter.api.Test;
 public class MATH20C_Chapter_One_Test {
 
     // expected results from calculations
+    private static final String RESULT_MATRIX_INCORRECT_INPUT = "Enter the size of the matrix"
+            + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+            + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input";
+    private static final String RESULT_MATRIX_NOT_SQUARE = RESULT_MATRIX_INCORRECT_INPUT.replace(
+            "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+            "Incorrect input -> The matrix is not a square matrix");
+    private static final String RESULT_MATRIX_SIZE_ERROR = "Enter the size of the matrix"
+            + "Incorrect input -> The size of the matrix has to be an integer bigger than 1";
     private static final String RESULT_TWO_LINES_DIMENSION_ERROR_R3 = "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
             + "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
             + "Incorrect input -> The line/lines are not in R3";
-    private static final String RESULT_TWO_LINES_INCORRECT_INPUT = "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
-            + "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
-            + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input";
+    private static final String RESULT_TWO_LINES_INCORRECT_INPUT = RESULT_TWO_LINES_DIMENSION_ERROR_R3.replace(
+            "Incorrect input -> The line/lines are not in R3",
+            "Incorrect input -> Only numbers, dots, and commas are allowed as valid input");
     private static final String RESULT_TWO_VECTORS_DIMENSION_ERROR = "Enter the vector in the form x_1,x_2,...,x_n"
             + "Enter the vector in the form x_1,x_2,...,x_n"
             + "Incorrect input -> The vectors are not in the same dimension";
-    private static final String RESULT_TWO_VECTORS_DIMENSION_ERROR_R3 = "Enter the vector in the form x_1,x_2,...,x_n"
-            + "Enter the vector in the form x_1,x_2,...,x_n" + "Incorrect input -> The vector/vectors are not in R3";
+    private static final String RESULT_TWO_VECTORS_DIMENSION_ERROR_R3 = RESULT_TWO_VECTORS_DIMENSION_ERROR.replace(
+            "Incorrect input -> The vectors are not in the same dimension",
+            "Incorrect input -> The vector/vectors are not in R3");
     private static final String RESULT_TWO_VECTORS_INCORRECT_INPUT = RESULT_TWO_LINES_INCORRECT_INPUT.replace(
             "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z",
             "Enter the vector in the form x_1,x_2,...,x_n");
@@ -265,7 +274,7 @@ public class MATH20C_Chapter_One_Test {
         // string output from running the function
         String output;
         // list of string tests
-        String[] tests = { "abc\nabcd", "abc\n3,1,4,5,4,4", "3,1,4,5,4,4\nabc", "3,1,5,4\n3,5,7,3,4,10",
+        String[] tests = { "abc\nabc", "abc\n3,1,4,5,4,4", "3,1,4,5,4,4\nabc", "3,1,5,4\n3,5,7,3,4,10",
                 "3,5,7,3,4,10\n3,1,5,4", "1,2,1,2,2,2\n3,1,4,5,4,4", "3,-1,1,4,1,6\n-1,-2,0,4,1,1" };
         // list of expected results
         String[] results = { RESULT_TWO_LINES_INCORRECT_INPUT, RESULT_TWO_LINES_INCORRECT_INPUT,
@@ -546,6 +555,216 @@ public class MATH20C_Chapter_One_Test {
             // run topic and see if results differ
             MATH20C_Chapter_One.resetScanner();
             MATH20C_Chapter_One.topicTen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic eleven for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Eleven")
+    public void topicElevenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\n", "1\n", "2.5\n", "2\nabc\n", "2\n1,2\nabc", "2\n1,2,3\n16,45", "2\n16,45\n1,2,3",
+                "2\n1,2\n3,4", "3\n1,2,3\n4,5,6\n7,8,9", "3\n1,0,0\n0,5,-1\n7,4,-1", "3\n1,2,3\n-2,1,4\n0,3,1",
+                "3\n1,2,-1\n2,5,0\n-4,-11,-2" };
+        // list of expected results
+        String[] results = { RESULT_MATRIX_SIZE_ERROR, RESULT_MATRIX_SIZE_ERROR, RESULT_MATRIX_SIZE_ERROR,
+                RESULT_MATRIX_INCORRECT_INPUT, RESULT_MATRIX_INCORRECT_INPUT, RESULT_MATRIX_NOT_SQUARE,
+                RESULT_MATRIX_NOT_SQUARE,
+                "Enter the size of the matrix"
+                        + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+                        + "The result is: -2.0000",
+                "Enter the size of the matrix"
+                        + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+                        + "The result is: 0.0000",
+                "Enter the size of the matrix"
+                        + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+                        + "The result is: -1.0000",
+                "Enter the size of the matrix"
+                        + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+                        + "The result is: -25.0000",
+                "Enter the size of the matrix"
+                        + "Enter each row of the matrix, separating each value with a comma in the form x_1,x_2,...,x_n"
+                        + "The result is: 0.0000" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicEleven();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic twelve for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Twelve")
+    public void topicTwelveTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc", "abc\n20,540,60", "20,540,60\nabc", "20,540,60\n50,45", "50,45\n20,540,60",
+                "1,-6,1\n7,1,1", "1,2,3\n6,2,4", "4,5,-3\n7,-2,7", "1,-6,1\n2,-1,2", "6,3,1\n1,7,-1",
+                "1,1,1\n-1,1,-1" };
+        // list of expected results
+        String[] results = { RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_INCORRECT_INPUT,
+                RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_TWO_VECTORS_DIMENSION_ERROR_R3,
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (-7.0000,6.0000,43.0000)",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (2.0000,14.0000,-10.0000)",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (29.0000,-49.0000,-43.0000)",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (-11.0000,0.0000,11.0000)",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (-10.0000,7.0000,39.0000)",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: (-2.0000,0.0000,2.0000)" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicTwelve();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic thirteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Thirteen")
+    public void topicThirteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc", "abc\n20,540,60", "20,540,60\nabc", "20,540,60\n50,45", "50,45\n20,540,60",
+                "1,2,3\n6,2,4" };
+        // list of expected results
+        String[] results = { RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_INCORRECT_INPUT,
+                RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_TWO_VECTORS_DIMENSION_ERROR_R3, "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The result is: 17.3205" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicThirteen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic fourteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Fourteen")
+    public void topicFourteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc\nabc", "abc\n20,50,70\n7,32,73", "20,50,70\nabc\n7,32,73",
+                "20,50,70\n7,32,73\nabc", "abc\nabc\n8,24,60", "abc\n8,24,60\nabc", "8,24,60\nabc\nabc",
+                "8,24\n89\n60,46", "8,24,60\n89\n60,46", "89\n8,24,60\n60,46", "89\n60,58\n8,24,60",
+                "89\n60,58,70\n8,24,60", "60,58,70\n89\n8,24,60", "60,58,70\n8,24,60\n89", "1,0,0\n0,5,-1\n7,4,-1",
+                "1,2,3\n-2,1,4\n0,3,1" };
+        // list of expected results
+        String[] results = { RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_INCORRECT_INPUT,
+                RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_TWO_VECTORS_DIMENSION_ERROR_R3, "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The result is: 17.3205" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicThirteen();
             output = out.toString();
             output = output.replaceAll("\r", "");
             output = output.replaceAll("\n", "");
