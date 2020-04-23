@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: April 21, 2020
+ * Date Edited: April 22, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -18,7 +18,8 @@ public class MATH20C_Chapter_One {
     // topic numbers
     private static final int TOPIC_ONE = 1, TOPIC_TWO = 2, TOPIC_THREE = 3, TOPIC_FOUR = 4, TOPIC_FIVE = 5,
             TOPIC_SIX = 6, TOPIC_SEVEN = 7, TOPIC_EIGHT = 8, TOPIC_NINE = 9, TOPIC_TEN = 10, TOPIC_ELEVEN = 11,
-            TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14, TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16;
+            TOPIC_TWELVE = 12, TOPIC_THIRTEEN = 13, TOPIC_FOURTEEN = 14, TOPIC_FIFTEEN = 15, TOPIC_SIXTEEN = 16,
+            TOPIC_SEVENTEEN = 17, TOPIC_EIGHTEEN = 18, TOPIC_NINETEEN = 19;
 
     // error messages for users
     private static final String ERROR_INVALID_MATRIX_SIZE = "Incorrect input -> The size of the matrix has to be an integer bigger than 1";
@@ -47,8 +48,11 @@ public class MATH20C_Chapter_One {
             QUESTION_PROMPT_VECTOR = "Enter the vector in the form x_1,x_2,...,x_n";
     // results of the calculations
     private static final String RESULT = "The result is: ";
+    private static final String RESULT_COPLANAR_FALSE = "The three vectors are not coplanar.";
+    private static final String RESULT_COPLANAR_TRUE = "The three vectors are coplanar.";
     private static final String RESULT_LINE = "(%.4f,%.4f,%.4f) + t(%.4f,%.4f,%.4f)";
     private static final String RESULT_NO_INTERSECTION = "There is no intersection.";
+    private static final String RESULT_PLANE = "%.4fx + %.4fy + %.4fz = %.4f";
 
     // scanner used to get user input
     private static Scanner scan = new Scanner(System.in);
@@ -116,10 +120,21 @@ public class MATH20C_Chapter_One {
                     topicThirteen();
                     break;
                 case TOPIC_FOURTEEN:
+                    topicFourteen();
                     break;
                 case TOPIC_FIFTEEN:
+                    topicFifteen();
                     break;
                 case TOPIC_SIXTEEN:
+                    topicSixteen();
+                    break;
+                case TOPIC_SEVENTEEN:
+                    topicSeventeen();
+                    break;
+                case TOPIC_EIGHTEEN:
+                    topicEighteen();
+                    break;
+                case TOPIC_NINETEEN:
                     break;
                 default:
                     answerQuestion = false;
@@ -641,7 +656,7 @@ public class MATH20C_Chapter_One {
         System.out.println(QUESTION_PROMPT_VECTOR);
         inputTwo = scan.next();
         System.out.println(QUESTION_PROMPT_VECTOR);
-        inputTwo = scan.next();
+        inputThree = scan.next();
         System.out.println();
 
         // catch exceptions
@@ -657,5 +672,166 @@ public class MATH20C_Chapter_One {
         }
 
         System.out.println(RESULT + String.format(DECIMAL_FOUR, volume));
+    }
+
+    /**
+     * This method runs the calculations for the fifteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicFifteen() {
+        // true if the vectors are coplanar, false if not
+        boolean coplanar;
+        // first input vector
+        String inputOne;
+        // second input vector
+        String inputTwo;
+        // third input vector
+        String inputThree;
+
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputThree = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            coplanar = calculations.threeVectorsCoplanar(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo), calculations.convertStringToArr(inputThree));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        // print results
+        if (coplanar == true) {
+            System.out.println(RESULT_COPLANAR_TRUE);
+        } else {
+            System.out.println(RESULT_COPLANAR_FALSE);
+        }
+    }
+
+    /**
+     * This method runs the calculations for the sixteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicSixteen() {
+        // resulting plane
+        double[] result_plane;
+        // first input point
+        String inputOne;
+        // second input point
+        String inputTwo;
+        // third input point
+        String inputThree;
+
+        System.out.println(QUESTION_PROMPT_POINT);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_POINT);
+        inputTwo = scan.next();
+        System.out.println(QUESTION_PROMPT_POINT);
+        inputThree = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_plane = calculations.equationOfPlaneThreePoints(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo), calculations.convertStringToArr(inputThree));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(RESULT_PLANE, result_plane[0], result_plane[1],
+                result_plane[THREE_DIMENSION - 1], result_plane[THREE_DIMENSION]));
+    }
+
+    /**
+     * This method runs the calculations for the seventeenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicSeventeen() {
+        // resulting plane
+        double[] result_plane;
+        // first input point
+        String inputOne;
+        // first input vector
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_POINT);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_VECTOR);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_plane = calculations.equationOfPlanePointAndNormalVector(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        System.out.println(RESULT + String.format(RESULT_PLANE, result_plane[0], result_plane[1],
+                result_plane[THREE_DIMENSION - 1], result_plane[THREE_DIMENSION]));
+    }
+
+    /**
+     * This method runs the calculations for the eighteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicEighteen() {
+        // resulting point
+        double[] result_point;
+        // first input line
+        String inputOne;
+        // first input plane
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_LINE);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_PLANE);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_point = calculations.intersectionOfLineAndPlane(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        // no intersection case
+        if (result_point == null) {
+            System.out.println(RESULT_NO_INTERSECTION);
+            return;
+        }
+
+        System.out.println(RESULT + calculations.convertArrToString(result_point));
     }
 }

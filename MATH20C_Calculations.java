@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: April 21, 2020
+ * Date Edited: April 22, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -26,7 +26,6 @@ public class MATH20C_Calculations {
     private static final String NOT_SQUARE_MATRIX = "Incorrect input -> The matrix is not a square matrix";
     private static final String PLANES_NOT_IN_R3 = "Incorrect input -> The plane/planes are not in R3";
     private static final String POINTS_NOT_IN_R3 = "Incorrect input -> The point/points are not in R3";
-    private static final String POINTS_NOT_IN_SAME_DIMENSION = "Incorrect input -> The points are not in the same dimension";
     private static final String VECTORS_NOT_IN_R3 = "Incorrect input -> The vector/vectors are not in R3";
     private static final String VECTORS_NOT_IN_SAME_DIMENSION = "Incorrect input -> The vectors are not in the same dimension";
     private static final String USER_INPUT_INVALID = "Incorrect input -> Only numbers, dots, and commas are allowed as valid input";
@@ -485,9 +484,18 @@ public class MATH20C_Calculations {
      */
     public double volumeOfParallelepipedThreeVectors(double[] vector_one, double[] vector_two, double[] vector_three) {
         // cross product of the first two vectors
-        double[] crossProduct = crossProductOfTwoVectors(vector_one, vector_two);
+        double[] crossProduct;
         // dot product of the third vector and the cross product
-        double dotProduct = dotProductTwoVectors(crossProduct, vector_three);
+        double dotProduct;
+
+        // check if the vectors are in R3
+        if (vector_one.length != THREE_DIMENSION || vector_one.length != vector_two.length
+                || vector_one.length != vector_three.length) {
+            throw new IllegalArgumentException(VECTORS_NOT_IN_R3);
+        }
+
+        crossProduct = crossProductOfTwoVectors(vector_one, vector_two);
+        dotProduct = dotProductTwoVectors(crossProduct, vector_three);
 
         return Math.abs(dotProduct);
     }
@@ -526,13 +534,9 @@ public class MATH20C_Calculations {
         // vector from point one to point three
         double[] vectorP1P3 = new double[point_one.length];
 
-        // check if points are all in the same dimension
-        if (point_one.length != point_two.length || point_one.length != point_three.length) {
-            throw new IllegalArgumentException(POINTS_NOT_IN_SAME_DIMENSION);
-        }
-
         // check if points are in R3
-        if (point_one.length != THREE_DIMENSION) {
+        if (point_one.length != THREE_DIMENSION || point_two.length != THREE_DIMENSION
+                || point_three.length != THREE_DIMENSION) {
             throw new IllegalArgumentException(POINTS_NOT_IN_R3);
         }
 
@@ -701,7 +705,7 @@ public class MATH20C_Calculations {
         }
 
         // calculate intersection
-        time = (-1 * plane[THREE_DIMENSION] - plane[0] * line[0] - plane[1] * line[1]
+        time = (plane[THREE_DIMENSION] - plane[0] * line[0] - plane[1] * line[1]
                 - plane[THREE_DIMENSION - 1] * line[THREE_DIMENSION - 1])
                 / (plane[0] * line[THREE_DIMENSION] + plane[1] * line[THREE_DIMENSION + 1]
                         + plane[THREE_DIMENSION - 1] * line[line.length - 1]);

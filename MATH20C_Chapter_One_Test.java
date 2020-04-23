@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: January 10, 2020
- * Date Edited: April 21, 2020
+ * Date Edited: April 22, 2020
  * Purpose: Test calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -30,6 +30,18 @@ public class MATH20C_Chapter_One_Test {
             "Incorrect input -> The matrix is not a square matrix");
     private static final String RESULT_MATRIX_SIZE_ERROR = "Enter the size of the matrix"
             + "Incorrect input -> The size of the matrix has to be an integer bigger than 1";
+    private static final String RESULT_THREE_POINTS_DIMENSION_ERROR_R3 = "Enter the point in the form x_1,x_2,...,x_n"
+            + "Enter the point in the form x_1,x_2,...,x_n" + "Enter the point in the form x_1,x_2,...,x_n"
+            + "Incorrect input -> The point/points are not in R3";
+    private static final String RESULT_THREE_POINTS_INCORRECT_INPUT = RESULT_THREE_POINTS_DIMENSION_ERROR_R3.replace(
+            "Incorrect input -> The point/points are not in R3",
+            "Incorrect input -> Only numbers, dots, and commas are allowed as valid input");
+    private static final String RESULT_THREE_VECTORS_DIMENSION_ERROR_R3 = "Enter the vector in the form x_1,x_2,...,x_n"
+            + "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+            + "Incorrect input -> The vector/vectors are not in R3";
+    private static final String RESULT_THREE_VECTORS_INCORRECT_INPUT = RESULT_THREE_VECTORS_DIMENSION_ERROR_R3.replace(
+            "Incorrect input -> The vector/vectors are not in R3",
+            "Incorrect input -> Only numbers, dots, and commas are allowed as valid input");
     private static final String RESULT_TWO_LINES_DIMENSION_ERROR_R3 = "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
             + "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
             + "Incorrect input -> The line/lines are not in R3";
@@ -745,10 +757,17 @@ public class MATH20C_Chapter_One_Test {
                 "89\n60,58,70\n8,24,60", "60,58,70\n89\n8,24,60", "60,58,70\n8,24,60\n89", "1,0,0\n0,5,-1\n7,4,-1",
                 "1,2,3\n-2,1,4\n0,3,1" };
         // list of expected results
-        String[] results = { RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_INCORRECT_INPUT,
-                RESULT_TWO_VECTORS_INCORRECT_INPUT, RESULT_TWO_VECTORS_DIMENSION_ERROR_R3,
-                RESULT_TWO_VECTORS_DIMENSION_ERROR_R3, "Enter the vector in the form x_1,x_2,...,x_n"
-                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The result is: 17.3205" };
+        String[] results = { RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The result is: 1.0000",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The result is: 25.0000" };
         // input stream for the test
         InputStream in;
         // output stream for the test
@@ -764,7 +783,233 @@ public class MATH20C_Chapter_One_Test {
 
             // run topic and see if results differ
             MATH20C_Chapter_One.resetScanner();
-            MATH20C_Chapter_One.topicThirteen();
+            MATH20C_Chapter_One.topicFourteen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic fifteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Fifteen")
+    public void topicFifteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc\nabc", "abc\n20,50,70\n7,32,73", "20,50,70\nabc\n7,32,73",
+                "20,50,70\n7,32,73\nabc", "abc\nabc\n8,24,60", "abc\n8,24,60\nabc", "8,24,60\nabc\nabc",
+                "8,24\n89\n60,46", "8,24,60\n89\n60,46", "89\n8,24,60\n60,46", "89\n60,58\n8,24,60",
+                "89\n60,58,70\n8,24,60", "60,58,70\n89\n8,24,60", "60,58,70\n8,24,60\n89", "1,2,-1\n2,5,0\n-4,-11,-2",
+                "1,2,3\n-2,1,4\n0,3,1" };
+        // list of expected results
+        String[] results = { RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_INCORRECT_INPUT,
+                RESULT_THREE_VECTORS_INCORRECT_INPUT, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                RESULT_THREE_VECTORS_DIMENSION_ERROR_R3, RESULT_THREE_VECTORS_DIMENSION_ERROR_R3,
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The three vectors are coplanar.",
+                "Enter the vector in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Enter the vector in the form x_1,x_2,...,x_n" + "The three vectors are not coplanar." };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicFifteen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic sixteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Sixteen")
+    public void topicSixteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc\nabc", "abc\n20,50,70\n7,32,73", "20,50,70\nabc\n7,32,73",
+                "20,50,70\n7,32,73\nabc", "abc\nabc\n8,24,60", "abc\n8,24,60\nabc", "8,24,60\nabc\nabc",
+                "8,24\n89\n60,46", "8,24,60\n89\n60,46", "89\n8,24,60\n60,46", "89\n60,58\n8,24,60",
+                "89\n60,58,70\n8,24,60", "60,58,70\n89\n8,24,60", "60,58,70\n8,24,60\n89", "1,3,2\n2,4,1\n5,6,1",
+                "3,-1,4\n0,0,5\n5,6,-1" };
+        // list of expected results
+        String[] results = { RESULT_THREE_POINTS_INCORRECT_INPUT, RESULT_THREE_POINTS_INCORRECT_INPUT,
+                RESULT_THREE_POINTS_INCORRECT_INPUT, RESULT_THREE_POINTS_INCORRECT_INPUT,
+                RESULT_THREE_POINTS_INCORRECT_INPUT, RESULT_THREE_POINTS_INCORRECT_INPUT,
+                RESULT_THREE_POINTS_INCORRECT_INPUT, RESULT_THREE_POINTS_DIMENSION_ERROR_R3,
+                RESULT_THREE_POINTS_DIMENSION_ERROR_R3, RESULT_THREE_POINTS_DIMENSION_ERROR_R3,
+                RESULT_THREE_POINTS_DIMENSION_ERROR_R3, RESULT_THREE_POINTS_DIMENSION_ERROR_R3,
+                RESULT_THREE_POINTS_DIMENSION_ERROR_R3, RESULT_THREE_POINTS_DIMENSION_ERROR_R3,
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the point in the form x_1,x_2,...,x_n"
+                        + "Enter the point in the form x_1,x_2,...,x_n"
+                        + "The result is: 2.0000x + -3.0000y + -1.0000z = -9.0000",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the point in the form x_1,x_2,...,x_n"
+                        + "Enter the point in the form x_1,x_2,...,x_n"
+                        + "The result is: 12.0000x + 13.0000y + 23.0000z = 115.0000" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicSixteen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic seventeen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Seventeen")
+    public void topicSeventeenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc", "abc\n40,60,100", "40,60,100\nabc", "40,60,100\n60,2", "60,214,405,607\n20,50,8",
+                "5,6,-1\n-3,1,1" };
+        // list of expected results
+        String[] results = {
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Incorrect input -> The vector/vectors are not in R3",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "Incorrect input -> The point/points are not in R3",
+                "Enter the point in the form x_1,x_2,...,x_n" + "Enter the vector in the form x_1,x_2,...,x_n"
+                        + "The result is: -3.0000x + 1.0000y + 1.0000z = -10.0000" };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicSeventeen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic eighteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Eighteen")
+    public void topicEighteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc", "abc\n40,60,100,620", "40,60,100,7,8,-23\nabc", "40,60,100,59,-4,0\n60,2,23",
+                "60,214,405,607\n20,50,8,60", "2,1,1,3,2,4\n2,-3,1,2" };
+        // list of expected results
+        String[] results = {
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Incorrect input -> Only numbers, dots, and commas are allowed as valid input",
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Incorrect input -> The plane/planes are not in R3",
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Incorrect input -> The line/lines are not in R3",
+                "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "The result is: (2.0000,1.0000,1.0000)", };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicEighteen();
             output = out.toString();
             output = output.replaceAll("\r", "");
             output = output.replaceAll("\n", "");
