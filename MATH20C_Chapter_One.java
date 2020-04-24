@@ -58,7 +58,7 @@ public class MATH20C_Chapter_One {
     private static Scanner scan = new Scanner(System.in);
 
     // class that will perform the calculations
-    private static MATH20C_Calculations calculations = new MATH20C_Calculations();
+    private static MATH20C_Calculations_Chapter_One calculations = new MATH20C_Calculations_Chapter_One();
 
     /**
      * The main method asks the user for the question they would like to answer.

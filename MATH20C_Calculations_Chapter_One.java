@@ -3,14 +3,14 @@
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
  * Date Edited: April 23, 2020
- * Purpose: Perform Calculations for MATH20C Problems
+ * Purpose: Perform Calculations for MATH20C Problems for Chapter 1
  */
 
 /**
  * This class contains methods that calculate various mathematical concepts from
- * MATH20C.
+ * MATH20C in chapter 1.
  */
-public class MATH20C_Calculations {
+public class MATH20C_Calculations_Chapter_One {
 
     private static final int TWO_DIMENSION = 2;
     private static final int THREE_DIMENSION = 3;
