@@ -12,17 +12,18 @@
  */
 public class MATH20C_Calculations_Chapter_Two {
 
-    // Partial Derivative (single function)
-    // Partial Derivative (multiple functions)
-    // Partial Derivative (composite functions)
-    // Linear Approximation
-    // Derivative Matrix
-    // Gradient
-    // Tangent Plane
-    // Tangent line for paths
-    // Directional Derivatives
-    // Directional Derivatives (max value)
-    // Directional Derivatives (min value)
+    // Derivative of a function with 1 variable
+    // Partial Derivative for function with 2 variables
+    // Partial Derivative matrix for functions with 2 variables
+    // Partial Derivative matrix for composite functions
+    // Gradient of functions with 3 variables
+    // Gradient of functions with 3 variables at a point
+    // Equation of the plane tangent to a function with two variables at a given point
+    // Velocity of a curve in R2 or R3
+    // Tangent line of a curve at a certain point and time R2 and R3
+    // Directional derivative of a function with two or 3 variables at a point in the direction of a vector
+    // Direction in which a function with two or 3 variables increases the fastest  at a point
+    // Maximum value of directional derivative given a function with 2/3 variables and a point
 
     // d/dx of c = 0
     // d/dx of x = 1

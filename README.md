@@ -43,3 +43,29 @@ Mathematical concepts in UCSD MATH 20C solved using the Java programming languag
 18. Determine the intersection of a line and a plane (only supports three dimensional space)
 
 19. Determine the intersection of two planes (only supports three dimensional space)
+
+## Functions for Chapter 2
+
+1. Derivative of a function (only supports functions with one variable)
+
+2. Partial derivative for a function (only supports functions with 2 variables)
+
+3. Partial derivative matrix for a function (only supports functions with 2 variables)
+
+4. Partial derivative matrix for composite functions
+
+5. Gradient of a function (only supports functions with 2 or 3 variables)
+
+6. Gradient of a function at a point (only supports functions with 2 or 3 variables)
+
+7. Equation of the plane tangent to a function at a given point (only supports functions with 2 variables)
+
+8. Velocity of a curve (only supports two and three dimensional space)
+
+9. Tangent line of a curve at a certain point and time (only supports two and three dimensional space)
+
+10. Directional derivative of a function at a point in the direction of a vector (only supports functions with 2 or 3 variables)
+
+11. Direction in which a function increases the fastest at a point (only supports functions with 2 or 3 variables)
+
+12. Maximum value of directional derivative given a function at a point (only supports functions with 2 or 3 variables)
