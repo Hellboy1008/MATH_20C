@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: March 12, 2019
- * Date Edited: April 22, 2020
+ * Date Edited: April 23, 2020
  * Purpose: Perform Calculations for MATH20C Problems
  */
 
@@ -733,9 +733,10 @@ public class MATH20C_Calculations {
         // orthogonal vector for the second plane
         double[] orthogonalVectorP2 = new double[plane_two.length - 1];
 
-        // reverse sign for last component of the planes
-        plane_one[plane_one.length - 1] *= -1;
-        plane_two[plane_two.length - 1] *= -1;
+        // check if the planes are in R3
+        if (plane_one.length != THREE_DIMENSION + 1 || plane_two.length != THREE_DIMENSION + 1) {
+            throw new IllegalArgumentException(PLANES_NOT_IN_R3);
+        }
 
         // find orthogonal vectors
         orthogonalVectorP1[0] = plane_one[0];
@@ -754,6 +755,11 @@ public class MATH20C_Calculations {
         intersection[THREE_DIMENSION] = crossProduct[0];
         intersection[THREE_DIMENSION + 1] = crossProduct[1];
         intersection[intersection.length - 1] = crossProduct[THREE_DIMENSION - 1];
+
+        // if the intersection values are NaN, there is not intersection
+        if (Double.isNaN(intersection[0])) {
+            return null;
+        }
 
         return intersection;
     }

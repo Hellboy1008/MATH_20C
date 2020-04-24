@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: January 10, 2020
- * Date Edited: April 22, 2020
+ * Date Edited: April 23, 2020
  * Purpose: Test calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -48,6 +48,12 @@ public class MATH20C_Chapter_One_Test {
     private static final String RESULT_TWO_LINES_INCORRECT_INPUT = RESULT_TWO_LINES_DIMENSION_ERROR_R3.replace(
             "Incorrect input -> The line/lines are not in R3",
             "Incorrect input -> Only numbers, dots, and commas are allowed as valid input");
+    private static final String RESULT_TWO_PLANES_DIMENSION_ERROR_R3 = "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+            + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+            + "Incorrect input -> The plane/planes are not in R3";
+    private static final String RESULT_TWO_PLANES_INCORRECT_INPUT = RESULT_TWO_LINES_INCORRECT_INPUT.replace(
+            "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z",
+            "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D");
     private static final String RESULT_TWO_VECTORS_DIMENSION_ERROR = "Enter the vector in the form x_1,x_2,...,x_n"
             + "Enter the vector in the form x_1,x_2,...,x_n"
             + "Incorrect input -> The vectors are not in the same dimension";
@@ -993,7 +999,7 @@ public class MATH20C_Chapter_One_Test {
                         + "Incorrect input -> The line/lines are not in R3",
                 "Given the form l(t) = (a,b,c) + t(x,y,z)Enter the line like this: a,b,c,x,y,z"
                         + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
-                        + "The result is: (2.0000,1.0000,1.0000)", };
+                        + "The result is: (2.0000,1.0000,1.0000)" };
         // input stream for the test
         InputStream in;
         // output stream for the test
@@ -1010,6 +1016,60 @@ public class MATH20C_Chapter_One_Test {
             // run topic and see if results differ
             MATH20C_Chapter_One.resetScanner();
             MATH20C_Chapter_One.topicEighteen();
+            output = out.toString();
+            output = output.replaceAll("\r", "");
+            output = output.replaceAll("\n", "");
+            assertEquals(results[index], output);
+        }
+
+        System.setOut(STANDARD_OUT);
+        System.setIn(STANDARD_IN);
+    }
+
+    /**
+     * This method tests topic nineteen for the chapter
+     * 
+     * @param None
+     * @return None
+     */
+    @Test
+    @DisplayName("Testing Chapter One Topic Nineteen")
+    public void topicNineteenTest() {
+        // string output from running the function
+        String output;
+        // list of string tests
+        String[] tests = { "abc\nabc", "abc\n40,60,100,620", "40,60,100,620\nabc", "40,60,100,59,-4,0.0\n60,2,23,80",
+                "60,214,405,607\n20,50,8,60,100,-45", "10,16,20,60\n5,8,10,30", "6,3,1,5\n1,7,-1,2",
+                "1,1,1,6\n-1,1,-1,-6" };
+        // list of expected results
+        String[] results = { RESULT_TWO_PLANES_INCORRECT_INPUT, RESULT_TWO_PLANES_INCORRECT_INPUT,
+                RESULT_TWO_PLANES_INCORRECT_INPUT, RESULT_TWO_PLANES_DIMENSION_ERROR_R3,
+                RESULT_TWO_PLANES_DIMENSION_ERROR_R3,
+                "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "There is no intersection.",
+                "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "The result is: (0.7436,0.1795,0.0000) + t(-10.0000,7.0000,39.0000)",
+                "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "Given the form P = Ax + By + Cz + D = 0Enter the plane like this: A,B,C,D"
+                        + "The result is: (6.0000,0.0000,0.0000) + t(-2.0000,0.0000,2.0000)", };
+        // input stream for the test
+        InputStream in;
+        // output stream for the test
+        ByteArrayOutputStream out;
+
+        // run tests
+        for (int index = 0; index < tests.length; index++) {
+            // set input and output streams
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            in = new ByteArrayInputStream(tests[index].getBytes());
+            System.setIn(in);
+
+            // run topic and see if results differ
+            MATH20C_Chapter_One.resetScanner();
+            MATH20C_Chapter_One.topicNineteen();
             output = out.toString();
             output = output.replaceAll("\r", "");
             output = output.replaceAll("\n", "");

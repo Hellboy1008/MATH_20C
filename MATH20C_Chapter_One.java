@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: December 19, 2018
- * Date Edited: April 22, 2020
+ * Date Edited: April 23, 2020
  * Purpose: Perform Calculations for MATH20C Problems in Chapter 1 of the textbook.
  */
 
@@ -135,6 +135,7 @@ public class MATH20C_Chapter_One {
                     topicEighteen();
                     break;
                 case TOPIC_NINETEEN:
+                    topicNineteen();
                     break;
                 default:
                     answerQuestion = false;
@@ -833,5 +834,55 @@ public class MATH20C_Chapter_One {
         }
 
         System.out.println(RESULT + calculations.convertArrToString(result_point));
+    }
+
+    /**
+     * This method runs the calculations for the nineteenth topic.
+     * 
+     * @param None
+     * @return None
+     */
+    public static void topicNineteen() {
+        // resulting line
+        double[] result_line;
+        // first input plane
+        String inputOne;
+        // first input plane
+        String inputTwo;
+
+        System.out.println(QUESTION_PROMPT_PLANE);
+        inputOne = scan.next();
+        System.out.println(QUESTION_PROMPT_PLANE);
+        inputTwo = scan.next();
+        System.out.println();
+
+        // catch exceptions
+        try {
+            result_line = calculations.intersectionOfTwoPlanes(calculations.convertStringToArr(inputOne),
+                    calculations.convertStringToArr(inputTwo));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (Exception e) {
+            System.out.println(e);
+            return;
+        }
+
+        // no intersection case
+        if (result_line == null) {
+            System.out.println(RESULT_NO_INTERSECTION);
+            return;
+        }
+
+        // convert negative zeroes to positive zeroes
+        for (int index = 0; index < result_line.length; index++) {
+            if (result_line[index] == 0) {
+                result_line[index] += 0.0;
+            }
+        }
+
+        System.out.println(RESULT + String.format(RESULT_LINE, result_line[0], result_line[1],
+                result_line[THREE_DIMENSION - 1], result_line[THREE_DIMENSION], result_line[THREE_DIMENSION + 1],
+                result_line[result_line.length - 1]));
     }
 }
