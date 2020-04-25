@@ -12,9 +12,11 @@
  */
 public class MATH20C_Calculations_Chapter_One {
 
+    // possible dimensions in calculations
     private static final int TWO_DIMENSION = 2;
     private static final int THREE_DIMENSION = 3;
 
+    // characters read as input
     private static final char COMMA = ',';
     private static final char LEFT_PARENTHESIS = '(';
     private static final char RIGHT_PARENTHESIS = ')';
