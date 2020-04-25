@@ -2,7 +2,7 @@
 /**
  * Created by: 龍ONE 
  * Date Created: April 23, 2020
- * Date Edited: April 23, 2020
+ * Date Edited: April 25, 2020
  * Purpose: Perform Calculations for MATH20C Problems for Chapter 2
  */
 
@@ -18,12 +18,20 @@ public class MATH20C_Calculations_Chapter_Two {
     // Partial Derivative matrix for composite functions
     // Gradient of functions with 3 variables
     // Gradient of functions with 3 variables at a point
-    // Equation of the plane tangent to a function with two variables at a given point
+    // Equation of the plane tangent to a function with two variables at a given
+    // point
     // Velocity of a curve in R2 or R3
     // Tangent line of a curve at a certain point and time R2 and R3
-    // Directional derivative of a function with two or 3 variables at a point in the direction of a vector
-    // Direction in which a function with two or 3 variables increases the fastest  at a point
-    // Maximum value of directional derivative given a function with 2/3 variables and a point
+    // Directional derivative of a function with two or 3 variables at a point in
+    // the direction of a vector
+    // Direction in which a function with two or 3 variables increases the fastest
+    // at a point
+    // Maximum value of directional derivative given a function with 2/3 variables
+    // and a point
+
+    // simple derivatives and their results
+    private static final String[] SIMPLE_DERIVATIVES = {};
+    private static final String[] SIMPLE_DERIVATIVES_ANS = {};
 
     // d/dx of c = 0
     // d/dx of x = 1
@@ -50,7 +58,30 @@ public class MATH20C_Calculations_Chapter_Two {
     // quotient rule
     // chain rule
 
-    public static String derivative(String operand) {
+    /**
+     * This method finds the derivative of a function given a variable
+     * 
+     * @param function The function that is in question
+     * @param variable The variable in question for function
+     * @return The derivative of the function in respect to the variable
+     */
+    public String derivative(String function, String variable) {
+
+        // if the function is a number, return 0
+        try {
+            double x = Double.parseDouble(function);
+            x += x;
+            return "" + 0;
+        } catch (IllegalArgumentException e) {
+        }
+
+        // catch different simple cases of derivative
+
         return "";
+    }
+
+    public static void main (String[] args){
+        MATH20C_Calculations_Chapter_Two a = new MATH20C_Calculations_Chapter_Two();
+        System.out.println(a.derivative("10","x"));
     }
 }
