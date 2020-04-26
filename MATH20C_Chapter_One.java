@@ -512,6 +512,8 @@ public class MATH20C_Chapter_One {
      * 
      * @param None
      * @return None
+     * @throws IllegalArgumentException if the matrix size is not an integer greater
+     *                                  than or equal to 1
      */
     public static void topicEleven() {
         // resulting determinant

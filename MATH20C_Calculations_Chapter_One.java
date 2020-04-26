@@ -483,6 +483,7 @@ public class MATH20C_Calculations_Chapter_One {
      * @param vector_two   The second vector
      * @param vector_three The third vector
      * @return The volume of the parallelepiped
+     * @throws IllegalArgumentException if the vectors are not in R3
      */
     public double volumeOfParallelepipedThreeVectors(double[] vector_one, double[] vector_two, double[] vector_three) {
         // cross product of the first two vectors
@@ -522,8 +523,7 @@ public class MATH20C_Calculations_Chapter_One {
      * @param point_two   The second point
      * @param point_three The third point
      * @return The equation of the plane
-     * @throws IllegalArgumentException if the points are not in the same dimension
-     *                                  or if it is not in R3
+     * @throws IllegalArgumentException if the points are not in R3
      */
     public double[] equationOfPlaneThreePoints(double[] point_one, double[] point_two, double[] point_three)
             throws IllegalArgumentException {
@@ -724,6 +724,7 @@ public class MATH20C_Calculations_Chapter_One {
      * @param plane_one The first plane
      * @param plane_two The second plane
      * @return The intersection of the two planes if it exists
+     * @throws IllegalArgumentException if the planes are not in R3
      */
     public double[] intersectionOfTwoPlanes(double[] plane_one, double[] plane_two) {
         // cross product of the two planes
