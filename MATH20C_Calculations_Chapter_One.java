@@ -24,13 +24,13 @@ public class MATH20C_Calculations_Chapter_One {
     // decimal format for 4 decimal places
     private static final String DECIMAL_FOUR = "%.4f";
     // error messages for incorrect input
-    private static final String LINES_NOT_IN_R3 = "Incorrect input -> The line/lines are not in R3";
-    private static final String NOT_SQUARE_MATRIX = "Incorrect input -> The matrix is not a square matrix";
-    private static final String PLANES_NOT_IN_R3 = "Incorrect input -> The plane/planes are not in R3";
-    private static final String POINTS_NOT_IN_R3 = "Incorrect input -> The point/points are not in R3";
-    private static final String VECTORS_NOT_IN_R3 = "Incorrect input -> The vector/vectors are not in R3";
-    private static final String VECTORS_NOT_IN_SAME_DIMENSION = "Incorrect input -> The vectors are not in the same dimension";
-    private static final String USER_INPUT_INVALID = "Incorrect input -> Only numbers, dots, and commas are allowed as valid input";
+    private static final String LINES_NOT_IN_R3 = "Incorrect Input -> The line/lines are not in R3";
+    private static final String NOT_SQUARE_MATRIX = "Incorrect Input -> The matrix is not a square matrix";
+    private static final String PLANES_NOT_IN_R3 = "Incorrect Input -> The plane/planes are not in R3";
+    private static final String POINTS_NOT_IN_R3 = "Incorrect Input -> The point/points are not in R3";
+    private static final String VECTORS_NOT_IN_R3 = "Incorrect Input -> The vector/vectors are not in R3";
+    private static final String VECTORS_NOT_IN_SAME_DIMENSION = "Incorrect Input -> The vectors are not in the same dimension";
+    private static final String USER_INPUT_INVALID = "Incorrect Input -> Only numbers, dots, and commas are allowed as valid input";
 
     /**
      * This method converts a string of numbers into a double array.

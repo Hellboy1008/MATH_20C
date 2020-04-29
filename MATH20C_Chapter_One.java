@@ -22,8 +22,8 @@ public class MATH20C_Chapter_One {
             TOPIC_SEVENTEEN = 17, TOPIC_EIGHTEEN = 18, TOPIC_NINETEEN = 19;
 
     // error messages for users
-    private static final String ERROR_INVALID_MATRIX_SIZE = "Incorrect input -> The size of the matrix has to be an integer bigger than 1";
-    private static final String ERROR_NOT_DOUBLE = "Incorrect input -> The scalar value has to be a real number";
+    private static final String ERROR_INVALID_MATRIX_SIZE = "Incorrect Input -> The size of the matrix has to be an integer bigger than 1";
+    private static final String ERROR_NOT_DOUBLE = "Incorrect Input -> The scalar value has to be a real number";
     // decimal format for 4 decimal places
     private static final String DECIMAL_FOUR = "%.4f";
     // prompt for users
